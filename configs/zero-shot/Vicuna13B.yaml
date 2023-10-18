@@ -1,6 +1,6 @@
 #Model args
 model_name_or_path: lmsys/vicuna-13b-v1.1 # we use v1.1 in the paper, but lmsys/vicuna-13b-v1.5 is the latest version
-torch_dtype: "auto"
+torch_dtype: "float32"
 quantization: 4
 predict_with_generate: false
 per_device_eval_batch_size: 32
