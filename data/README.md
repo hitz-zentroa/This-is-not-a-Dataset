@@ -3,9 +3,9 @@
 This directory constrains the dataset files
 
 * `README.md` - this file
-* `This-is-not-a-dataset.zip` - the dataset in json lines format
-* `This-is-not-a-dataset_RAW_DATA.zip` - the dataset in txt format
-* `upload_to_huggingface.py` - script to upload the dataset to huggingface
+* `This-is-not-a-dataset.zip` - the dataset in json lines format.
+* `This-is-not-a-dataset_RAW_DATA.zip` - the dataset in txt format. These files contain the raw data, and include information about the wordnet synsets used to generate the sentences.
+* `upload_to_huggingface.py` - script to upload the dataset to huggingface. This script also performs some preprocessing steps to facilitate the usage of the dataset.
 * `patterns.py` - a script with a dictionary of the patterns in the dataset
 
 # PASSWORD
