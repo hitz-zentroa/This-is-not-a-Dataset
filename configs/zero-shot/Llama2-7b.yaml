@@ -1,0 +1,20 @@
+#Model args
+model_name_or_path: meta-llama/Llama-2-7b-chat-hf
+torch_dtype: "auto"
+quantization: 4
+predict_with_generate: false
+per_device_eval_batch_size: 32
+conversation_template: llama-2
+
+# dataset arguments
+do_train: false
+do_eval: false
+do_predict: true
+do_predict_full_dataset: true
+max_seq_length: 512
+
+
+# Output Dir
+output_dir: results/zero-shot/llama-2-7b-chat-hf
+
+

@@ -1,0 +1,30 @@
+#Model args
+model_name_or_path: meta-llama/Llama-2-7b-chat-hf
+torch_dtype: "auto"
+use_lora: true
+quantization: 4
+predict_with_generate: false
+conversation_template: llama-2
+
+# Dataset arguments
+do_train: true
+do_eval: true
+do_predict: true
+do_predict_full_dataset: false
+max_seq_length: 512
+
+#Training arguments
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 1
+per_device_eval_batch_size: 32
+optim: paged_adamw_32bit
+learning_rate: 0.0003
+weight_decay: 0
+num_train_epochs: 3
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+
+# Output Dir
+output_dir: results/finetune/Llama-2-7b-chat-hf
+
+
