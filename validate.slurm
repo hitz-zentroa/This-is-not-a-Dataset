@@ -23,7 +23,7 @@ accelerate launch run.py configs/zero-shot/Vicuna13B.yaml
 accelerate launch run.py configs/zero-shot/Llama2-7b.yaml
 accelerate launch run.py configs/zero-shot/Llama2-70b.yaml
 
-accelerate launch run.py configs/train/Vicuna13B.yaml
-accelerate launch run.py configs/train/Llama2-7b.yaml
-accelerate launch run.py configs/train/FlanT5-xxl.yaml
+accelerate launch --mixed_precision bf16 run.py configs/train/Vicuna13B.yaml
+accelerate launch --mixed_precision bf16 run.py configs/train/Llama2-7b.yaml
+accelerate launch --mixed_precision bf16 run.py configs/train/FlanT5-xxl.yaml
 
