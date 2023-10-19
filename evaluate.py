@@ -522,7 +522,7 @@ def evaluate(predictions_path: str, output_path: Optional[str] = None) -> dict:
 
     print(
         """
-    **** Running evaluation ****
+*************************************** Running evaluation ***************************************
 The scorer will output the following metrics:
     - **all_affirmations**: Accuracy of the model in affirmative sentences
     - **all_negations**: Accuracy of the model in negated sentences
@@ -534,7 +534,7 @@ The scorer will output the following metrics:
     - **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic,
     clausal, non_verbal, synthetic, subclausal negation types)
     - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
-    *****************
+**************************************************************************************************
     """
     )
     dataset_pattern = {
