@@ -187,7 +187,12 @@ should contain the prediction for each example as a boolean `true` or `false`. E
 ...
 ```
 
-### Result interpretation
+You can call the scorer with the following command:
+```bash
+python3 evaluate.py --predictions_path <path_to_input_file>.jsonl --output_path <path_to_output_scores>.json
+```
+
+### Scorer Result Interpretation
 The scorer will output the following metrics:
 - **all_affirmations**: Accuracy of the model in affirmative sentences
 - **all_negations**: Accuracy of the model in negated sentences
@@ -199,11 +204,7 @@ The scorer will output the following metrics:
 - **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic, clausal, non_verbal, synthetic, subclausal negation types)
 - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
 
-You can call the scorer with the following command:
 
-```bash
-python3 evaluate.py --predictions_path <path_to_input_file>.jsonl --output_path <path_to_output_scores>.json
-```
 
 
 # Citation
