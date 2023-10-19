@@ -193,7 +193,7 @@ python3 evaluate.py --predictions_path <path_to_input_file>.jsonl --output_path 
 ```
 
 ### Scorer Result Interpretation
-The scorer will output the following metrics:
+The scorer will output the following metrics. See the [results/](results/) folder for an example of the output of the scorer.
 - **all_affirmations**: Accuracy of the model in affirmative sentences
 - **all_negations**: Accuracy of the model in negated sentences
 - **all**: (Overall) Accuracy of the model in all sentences

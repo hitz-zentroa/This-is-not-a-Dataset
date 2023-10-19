@@ -1,0 +1,2409 @@
+{
+    "all_affirmations": {
+        "TP": 58577,
+        "FP": 18115,
+        "FN": 12539,
+        "TN": 60557,
+        "accuracy": 79.54
+    },
+    "input_affirmation": {
+        "TP": 58523,
+        "FP": 417,
+        "FN": 12305,
+        "TN": 2047,
+        "accuracy": 82.64
+    },
+    "all": {
+        "TP": 62182,
+        "FP": 34234,
+        "FN": 129469,
+        "TN": 155415,
+        "accuracy": 57.07
+    },
+    "distractor_affirmation": {
+        "TP": 54,
+        "FP": 17698,
+        "FN": 234,
+        "TN": 58510,
+        "accuracy": 76.56
+    },
+    "all_negations": {
+        "TP": 3605,
+        "FP": 16119,
+        "FN": 116930,
+        "TN": 94858,
+        "accuracy": 42.53
+    },
+    "input_negation": {
+        "TP": 215,
+        "FP": 16078,
+        "FN": 3003,
+        "TN": 94611,
+        "accuracy": 83.25
+    },
+    "distractor_negation": {
+        "TP": 3390,
+        "FP": 41,
+        "FN": 113927,
+        "TN": 247,
+        "accuracy": 3.09
+    },
+    "Negation_analysis": {
+        "verbal_all": {
+            "TP": 1131,
+            "FP": 3634,
+            "FN": 38647,
+            "TN": 33276,
+            "accuracy": 44.87
+        },
+        "verbal_input": {
+            "TP": 116,
+            "FP": 3593,
+            "FN": 956,
+            "TN": 33029,
+            "accuracy": 87.93
+        },
+        "verbal_distractor": {
+            "TP": 1015,
+            "FP": 41,
+            "FN": 37691,
+            "TN": 247,
+            "accuracy": 3.24
+        },
+        "analytic_all": {
+            "TP": 3110,
+            "FP": 15033,
+            "FN": 91280,
+            "TN": 71769,
+            "accuracy": 41.33
+        },
+        "analytic_input": {
+            "TP": 175,
+            "FP": 14992,
+            "FN": 2405,
+            "TN": 71522,
+            "accuracy": 80.47
+        },
+        "analytic_distractor": {
+            "TP": 2935,
+            "FP": 41,
+            "FN": 88875,
+            "TN": 247,
+            "accuracy": 3.46
+        },
+        "clausal_all": {
+            "TP": 1129,
+            "FP": 3625,
+            "FN": 38569,
+            "TN": 33205,
+            "accuracy": 44.86
+        },
+        "clausal_input": {
+            "TP": 116,
+            "FP": 3584,
+            "FN": 956,
+            "TN": 32958,
+            "accuracy": 87.93
+        },
+        "clausal_distractor": {
+            "TP": 1013,
+            "FP": 41,
+            "FN": 37613,
+            "TN": 247,
+            "accuracy": 3.24
+        },
+        "non_verbal_all": {
+            "TP": 2474,
+            "FP": 12485,
+            "FN": 78283,
+            "TN": 61582,
+            "accuracy": 41.37
+        },
+        "non_verbal_input": {
+            "TP": 99,
+            "FP": 12485,
+            "FN": 2047,
+            "TN": 61582,
+            "accuracy": 80.93
+        },
+        "non_verbal_distractor": {
+            "TP": 2375,
+            "FP": 0,
+            "FN": 76236,
+            "TN": 0,
+            "accuracy": 3.02
+        },
+        "synthetic_all": {
+            "TP": 495,
+            "FP": 1086,
+            "FN": 25650,
+            "TN": 23089,
+            "accuracy": 46.87
+        },
+        "synthetic_input": {
+            "TP": 40,
+            "FP": 1086,
+            "FN": 598,
+            "TN": 23089,
+            "accuracy": 93.21
+        },
+        "synthetic_distractor": {
+            "TP": 455,
+            "FP": 0,
+            "FN": 25052,
+            "TN": 0,
+            "accuracy": 1.78
+        },
+        "subclausal_all": {
+            "TP": 2476,
+            "FP": 12494,
+            "FN": 78361,
+            "TN": 61653,
+            "accuracy": 41.38
+        },
+        "subclausal_input": {
+            "TP": 99,
+            "FP": 12494,
+            "FN": 2047,
+            "TN": 61653,
+            "accuracy": 80.94
+        },
+        "subclausal_distractor": {
+            "TP": 2377,
+            "FP": 0,
+            "FN": 76314,
+            "TN": 0,
+            "accuracy": 3.02
+        }
+    },
+    "coherence_scores": {
+        "All": {
+            "Coherent": 2,
+            "Incoherent": 4098,
+            "Coherence_percentage": 0.05
+        },
+        "Affirmation-Negation_Input": {
+            "Coherent": 284,
+            "Incoherent": 3816,
+            "Coherence_percentage": 6.93
+        },
+        "Affirmation-Negation_Distractor": {
+            "Coherent": 27,
+            "Incoherent": 4073,
+            "Coherence_percentage": 0.66
+        },
+        "Input-Distractor_Affirmation": {
+            "Coherent": 882,
+            "Incoherent": 3218,
+            "Coherence_percentage": 21.51
+        },
+        "Input-Distractor_Negation": {
+            "Coherent": 30,
+            "Incoherent": 4070,
+            "Coherence_percentage": 0.73
+        }
+    },
+    "Synonymy1": {
+        "all_affirmations": {
+            "TP": 47599,
+            "FP": 13662,
+            "FN": 6329,
+            "TN": 40266,
+            "accuracy": 81.47
+        },
+        "input_affirmation": {
+            "TP": 47599,
+            "FP": 0,
+            "FN": 6329,
+            "TN": 0,
+            "accuracy": 88.26
+        },
+        "all": {
+            "TP": 50386,
+            "FP": 28730,
+            "FN": 90426,
+            "TN": 112082,
+            "accuracy": 57.69
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 13662,
+            "FN": 0,
+            "TN": 40266,
+            "accuracy": 74.67
+        },
+        "all_negations": {
+            "TP": 2787,
+            "FP": 15068,
+            "FN": 84097,
+            "TN": 71816,
+            "accuracy": 42.93
+        },
+        "input_negation": {
+            "TP": 0,
+            "FP": 15068,
+            "FN": 0,
+            "TN": 71816,
+            "accuracy": 82.66
+        },
+        "distractor_negation": {
+            "TP": 2787,
+            "FP": 0,
+            "FN": 84097,
+            "TN": 0,
+            "accuracy": 3.21
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 838,
+                "FP": 3530,
+                "FN": 29122,
+                "TN": 26430,
+                "accuracy": 45.51
+            },
+            "verbal_input": {
+                "TP": 0,
+                "FP": 3530,
+                "FN": 0,
+                "TN": 26430,
+                "accuracy": 88.22
+            },
+            "verbal_distractor": {
+                "TP": 838,
+                "FP": 0,
+                "FN": 29122,
+                "TN": 0,
+                "accuracy": 2.8
+            },
+            "analytic_all": {
+                "TP": 2638,
+                "FP": 14164,
+                "FN": 63274,
+                "TN": 51748,
+                "accuracy": 41.26
+            },
+            "analytic_input": {
+                "TP": 0,
+                "FP": 14164,
+                "FN": 0,
+                "TN": 51748,
+                "accuracy": 78.51
+            },
+            "analytic_distractor": {
+                "TP": 2638,
+                "FP": 0,
+                "FN": 63274,
+                "TN": 0,
+                "accuracy": 4.0
+            },
+            "clausal_all": {
+                "TP": 838,
+                "FP": 3530,
+                "FN": 29122,
+                "TN": 26430,
+                "accuracy": 45.51
+            },
+            "clausal_input": {
+                "TP": 0,
+                "FP": 3530,
+                "FN": 0,
+                "TN": 26430,
+                "accuracy": 88.22
+            },
+            "clausal_distractor": {
+                "TP": 838,
+                "FP": 0,
+                "FN": 29122,
+                "TN": 0,
+                "accuracy": 2.8
+            },
+            "non_verbal_all": {
+                "TP": 1949,
+                "FP": 11538,
+                "FN": 54975,
+                "TN": 45386,
+                "accuracy": 41.58
+            },
+            "non_verbal_input": {
+                "TP": 0,
+                "FP": 11538,
+                "FN": 0,
+                "TN": 45386,
+                "accuracy": 79.73
+            },
+            "non_verbal_distractor": {
+                "TP": 1949,
+                "FP": 0,
+                "FN": 54975,
+                "TN": 0,
+                "accuracy": 3.42
+            },
+            "synthetic_all": {
+                "TP": 149,
+                "FP": 904,
+                "FN": 20823,
+                "TN": 20068,
+                "accuracy": 48.2
+            },
+            "synthetic_input": {
+                "TP": 0,
+                "FP": 904,
+                "FN": 0,
+                "TN": 20068,
+                "accuracy": 95.69
+            },
+            "synthetic_distractor": {
+                "TP": 149,
+                "FP": 0,
+                "FN": 20823,
+                "TN": 0,
+                "accuracy": 0.71
+            },
+            "subclausal_all": {
+                "TP": 1949,
+                "FP": 11538,
+                "FN": 54975,
+                "TN": 45386,
+                "accuracy": 41.58
+            },
+            "subclausal_input": {
+                "TP": 0,
+                "FP": 11538,
+                "FN": 0,
+                "TN": 45386,
+                "accuracy": 79.73
+            },
+            "subclausal_distractor": {
+                "TP": 1949,
+                "FP": 0,
+                "FN": 54975,
+                "TN": 0,
+                "accuracy": 3.42
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 2996,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 195,
+                "Incoherent": 2801,
+                "Coherence_percentage": 6.51
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 9,
+                "Incoherent": 2987,
+                "Coherence_percentage": 0.3
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 757,
+                "Incoherent": 2239,
+                "Coherence_percentage": 25.27
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 1,
+                "Incoherent": 2995,
+                "Coherence_percentage": 0.03
+            }
+        }
+    },
+    "Antonymy1": {
+        "all_affirmations": {
+            "TP": 0,
+            "FP": 760,
+            "FN": 0,
+            "TN": 2372,
+            "accuracy": 75.73
+        },
+        "input_affirmation": {
+            "TP": 0,
+            "FP": 299,
+            "FN": 0,
+            "TN": 745,
+            "accuracy": 71.36
+        },
+        "all": {
+            "TP": 190,
+            "FP": 760,
+            "FN": 4856,
+            "TN": 2372,
+            "accuracy": 31.33
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 461,
+            "FN": 0,
+            "TN": 1627,
+            "accuracy": 77.92
+        },
+        "all_negations": {
+            "TP": 190,
+            "FP": 0,
+            "FN": 4856,
+            "TN": 0,
+            "accuracy": 3.77
+        },
+        "input_negation": {
+            "TP": 95,
+            "FP": 0,
+            "FN": 1587,
+            "TN": 0,
+            "accuracy": 5.65
+        },
+        "distractor_negation": {
+            "TP": 95,
+            "FP": 0,
+            "FN": 3269,
+            "TN": 0,
+            "accuracy": 2.82
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 70,
+                "FP": 0,
+                "FN": 1670,
+                "TN": 0,
+                "accuracy": 4.02
+            },
+            "verbal_input": {
+                "TP": 32,
+                "FP": 0,
+                "FN": 548,
+                "TN": 0,
+                "accuracy": 5.52
+            },
+            "verbal_distractor": {
+                "TP": 38,
+                "FP": 0,
+                "FN": 1122,
+                "TN": 0,
+                "accuracy": 3.28
+            },
+            "analytic_all": {
+                "TP": 178,
+                "FP": 0,
+                "FN": 3650,
+                "TN": 0,
+                "accuracy": 4.65
+            },
+            "analytic_input": {
+                "TP": 86,
+                "FP": 0,
+                "FN": 1190,
+                "TN": 0,
+                "accuracy": 6.74
+            },
+            "analytic_distractor": {
+                "TP": 92,
+                "FP": 0,
+                "FN": 2460,
+                "TN": 0,
+                "accuracy": 3.61
+            },
+            "clausal_all": {
+                "TP": 70,
+                "FP": 0,
+                "FN": 1670,
+                "TN": 0,
+                "accuracy": 4.02
+            },
+            "clausal_input": {
+                "TP": 32,
+                "FP": 0,
+                "FN": 548,
+                "TN": 0,
+                "accuracy": 5.52
+            },
+            "clausal_distractor": {
+                "TP": 38,
+                "FP": 0,
+                "FN": 1122,
+                "TN": 0,
+                "accuracy": 3.28
+            },
+            "non_verbal_all": {
+                "TP": 120,
+                "FP": 0,
+                "FN": 3186,
+                "TN": 0,
+                "accuracy": 3.63
+            },
+            "non_verbal_input": {
+                "TP": 63,
+                "FP": 0,
+                "FN": 1039,
+                "TN": 0,
+                "accuracy": 5.72
+            },
+            "non_verbal_distractor": {
+                "TP": 57,
+                "FP": 0,
+                "FN": 2147,
+                "TN": 0,
+                "accuracy": 2.59
+            },
+            "synthetic_all": {
+                "TP": 12,
+                "FP": 0,
+                "FN": 1206,
+                "TN": 0,
+                "accuracy": 0.99
+            },
+            "synthetic_input": {
+                "TP": 9,
+                "FP": 0,
+                "FN": 397,
+                "TN": 0,
+                "accuracy": 2.22
+            },
+            "synthetic_distractor": {
+                "TP": 3,
+                "FP": 0,
+                "FN": 809,
+                "TN": 0,
+                "accuracy": 0.37
+            },
+            "subclausal_all": {
+                "TP": 120,
+                "FP": 0,
+                "FN": 3186,
+                "TN": 0,
+                "accuracy": 3.63
+            },
+            "subclausal_input": {
+                "TP": 63,
+                "FP": 0,
+                "FN": 1039,
+                "TN": 0,
+                "accuracy": 5.72
+            },
+            "subclausal_distractor": {
+                "TP": 57,
+                "FP": 0,
+                "FN": 2147,
+                "TN": 0,
+                "accuracy": 2.59
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 58,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 1,
+                "Incoherent": 57,
+                "Coherence_percentage": 1.72
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 0,
+                "Incoherent": 58,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 3,
+                "Incoherent": 55,
+                "Coherence_percentage": 5.17
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 20,
+                "Incoherent": 38,
+                "Coherence_percentage": 34.48
+            }
+        }
+    },
+    "Synonymy2": {
+        "all_affirmations": {
+            "TP": 223,
+            "FP": 28,
+            "FN": 225,
+            "TN": 784,
+            "accuracy": 79.92
+        },
+        "input_affirmation": {
+            "TP": 208,
+            "FP": 13,
+            "FN": 184,
+            "TN": 15,
+            "accuracy": 53.1
+        },
+        "all": {
+            "TP": 263,
+            "FP": 70,
+            "FN": 941,
+            "TN": 1162,
+            "accuracy": 58.5
+        },
+        "distractor_affirmation": {
+            "TP": 15,
+            "FP": 15,
+            "FN": 41,
+            "TN": 769,
+            "accuracy": 93.33
+        },
+        "all_negations": {
+            "TP": 40,
+            "FP": 42,
+            "FN": 716,
+            "TN": 378,
+            "accuracy": 35.54
+        },
+        "input_negation": {
+            "TP": 17,
+            "FP": 27,
+            "FN": 11,
+            "TN": 337,
+            "accuracy": 90.31
+        },
+        "distractor_negation": {
+            "TP": 23,
+            "FP": 15,
+            "FN": 705,
+            "TN": 41,
+            "accuracy": 8.16
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 33,
+                "FP": 35,
+                "FN": 219,
+                "TN": 133,
+                "accuracy": 39.52
+            },
+            "verbal_input": {
+                "TP": 17,
+                "FP": 20,
+                "FN": 11,
+                "TN": 92,
+                "accuracy": 77.86
+            },
+            "verbal_distractor": {
+                "TP": 16,
+                "FP": 15,
+                "FN": 208,
+                "TN": 41,
+                "accuracy": 20.36
+            },
+            "analytic_all": {
+                "TP": 33,
+                "FP": 35,
+                "FN": 611,
+                "TN": 329,
+                "accuracy": 35.91
+            },
+            "analytic_input": {
+                "TP": 17,
+                "FP": 20,
+                "FN": 11,
+                "TN": 288,
+                "accuracy": 90.77
+            },
+            "analytic_distractor": {
+                "TP": 16,
+                "FP": 15,
+                "FN": 600,
+                "TN": 41,
+                "accuracy": 8.48
+            },
+            "clausal_all": {
+                "TP": 33,
+                "FP": 35,
+                "FN": 219,
+                "TN": 133,
+                "accuracy": 39.52
+            },
+            "clausal_input": {
+                "TP": 17,
+                "FP": 20,
+                "FN": 11,
+                "TN": 92,
+                "accuracy": 77.86
+            },
+            "clausal_distractor": {
+                "TP": 16,
+                "FP": 15,
+                "FN": 208,
+                "TN": 41,
+                "accuracy": 20.36
+            },
+            "non_verbal_all": {
+                "TP": 7,
+                "FP": 7,
+                "FN": 497,
+                "TN": 245,
+                "accuracy": 33.33
+            },
+            "non_verbal_input": {
+                "TP": 0,
+                "FP": 7,
+                "FN": 0,
+                "TN": 245,
+                "accuracy": 97.22
+            },
+            "non_verbal_distractor": {
+                "TP": 7,
+                "FP": 0,
+                "FN": 497,
+                "TN": 0,
+                "accuracy": 1.39
+            },
+            "subclausal_all": {
+                "TP": 7,
+                "FP": 7,
+                "FN": 497,
+                "TN": 245,
+                "accuracy": 33.33
+            },
+            "subclausal_input": {
+                "TP": 0,
+                "FP": 7,
+                "FN": 0,
+                "TN": 245,
+                "accuracy": 97.22
+            },
+            "subclausal_distractor": {
+                "TP": 7,
+                "FP": 0,
+                "FN": 497,
+                "TN": 0,
+                "accuracy": 1.39
+            },
+            "synthetic_all": {
+                "TP": 7,
+                "FP": 7,
+                "FN": 105,
+                "TN": 49,
+                "accuracy": 33.33
+            },
+            "synthetic_input": {
+                "TP": 0,
+                "FP": 7,
+                "FN": 0,
+                "TN": 49,
+                "accuracy": 87.5
+            },
+            "synthetic_distractor": {
+                "TP": 7,
+                "FP": 0,
+                "FN": 105,
+                "TN": 0,
+                "accuracy": 6.25
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 14,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 0,
+                "Incoherent": 14,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 0,
+                "Incoherent": 14,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 0,
+                "Incoherent": 14,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 0,
+                "Incoherent": 14,
+                "Coherence_percentage": 0.0
+            }
+        }
+    },
+    "Antonymy2": {
+        "all_affirmations": {
+            "TP": 108,
+            "FP": 187,
+            "FN": 472,
+            "TN": 4453,
+            "accuracy": 87.38
+        },
+        "input_affirmation": {
+            "TP": 69,
+            "FP": 105,
+            "FN": 279,
+            "TN": 1287,
+            "accuracy": 77.93
+        },
+        "all": {
+            "TP": 265,
+            "FP": 219,
+            "FN": 4839,
+            "TN": 4769,
+            "accuracy": 49.88
+        },
+        "distractor_affirmation": {
+            "TP": 39,
+            "FP": 82,
+            "FN": 193,
+            "TN": 3166,
+            "accuracy": 92.1
+        },
+        "all_negations": {
+            "TP": 157,
+            "FP": 32,
+            "FN": 4367,
+            "TN": 316,
+            "accuracy": 9.71
+        },
+        "input_negation": {
+            "TP": 103,
+            "FP": 6,
+            "FN": 1405,
+            "TN": 110,
+            "accuracy": 13.12
+        },
+        "distractor_negation": {
+            "TP": 54,
+            "FP": 26,
+            "FN": 2962,
+            "TN": 206,
+            "accuracy": 8.0
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 103,
+                "FP": 32,
+                "FN": 1289,
+                "TN": 316,
+                "accuracy": 24.08
+            },
+            "verbal_input": {
+                "TP": 67,
+                "FP": 6,
+                "FN": 397,
+                "TN": 110,
+                "accuracy": 30.52
+            },
+            "verbal_distractor": {
+                "TP": 36,
+                "FP": 26,
+                "FN": 892,
+                "TN": 206,
+                "accuracy": 20.86
+            },
+            "analytic_all": {
+                "TP": 108,
+                "FP": 32,
+                "FN": 3720,
+                "TN": 316,
+                "accuracy": 10.15
+            },
+            "analytic_input": {
+                "TP": 72,
+                "FP": 6,
+                "FN": 1204,
+                "TN": 110,
+                "accuracy": 13.07
+            },
+            "analytic_distractor": {
+                "TP": 36,
+                "FP": 26,
+                "FN": 2516,
+                "TN": 206,
+                "accuracy": 8.69
+            },
+            "clausal_all": {
+                "TP": 103,
+                "FP": 32,
+                "FN": 1289,
+                "TN": 316,
+                "accuracy": 24.08
+            },
+            "clausal_input": {
+                "TP": 67,
+                "FP": 6,
+                "FN": 397,
+                "TN": 110,
+                "accuracy": 30.52
+            },
+            "clausal_distractor": {
+                "TP": 36,
+                "FP": 26,
+                "FN": 892,
+                "TN": 206,
+                "accuracy": 20.86
+            },
+            "non_verbal_all": {
+                "TP": 54,
+                "FP": 0,
+                "FN": 3078,
+                "TN": 0,
+                "accuracy": 1.72
+            },
+            "non_verbal_input": {
+                "TP": 36,
+                "FP": 0,
+                "FN": 1008,
+                "TN": 0,
+                "accuracy": 3.45
+            },
+            "non_verbal_distractor": {
+                "TP": 18,
+                "FP": 0,
+                "FN": 2070,
+                "TN": 0,
+                "accuracy": 0.86
+            },
+            "subclausal_all": {
+                "TP": 54,
+                "FP": 0,
+                "FN": 3078,
+                "TN": 0,
+                "accuracy": 1.72
+            },
+            "subclausal_input": {
+                "TP": 36,
+                "FP": 0,
+                "FN": 1008,
+                "TN": 0,
+                "accuracy": 3.45
+            },
+            "subclausal_distractor": {
+                "TP": 18,
+                "FP": 0,
+                "FN": 2070,
+                "TN": 0,
+                "accuracy": 0.86
+            },
+            "synthetic_all": {
+                "TP": 49,
+                "FP": 0,
+                "FN": 647,
+                "TN": 0,
+                "accuracy": 7.04
+            },
+            "synthetic_input": {
+                "TP": 31,
+                "FP": 0,
+                "FN": 201,
+                "TN": 0,
+                "accuracy": 13.36
+            },
+            "synthetic_distractor": {
+                "TP": 18,
+                "FP": 0,
+                "FN": 446,
+                "TN": 0,
+                "accuracy": 3.88
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 58,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 0,
+                "Incoherent": 58,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 0,
+                "Incoherent": 58,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 14,
+                "Incoherent": 44,
+                "Coherence_percentage": 24.14
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 7,
+                "Incoherent": 51,
+                "Coherence_percentage": 12.07
+            }
+        }
+    },
+    "Hypernymy": {
+        "all_affirmations": {
+            "TP": 7814,
+            "FP": 2286,
+            "FN": 4866,
+            "TN": 10394,
+            "accuracy": 71.8
+        },
+        "input_affirmation": {
+            "TP": 7814,
+            "FP": 0,
+            "FN": 4866,
+            "TN": 0,
+            "accuracy": 61.62
+        },
+        "all": {
+            "TP": 8200,
+            "FP": 2747,
+            "FN": 22232,
+            "TN": 27685,
+            "accuracy": 58.96
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 2286,
+            "FN": 0,
+            "TN": 10394,
+            "accuracy": 81.97
+        },
+        "all_negations": {
+            "TP": 386,
+            "FP": 461,
+            "FN": 17366,
+            "TN": 17291,
+            "accuracy": 49.79
+        },
+        "input_negation": {
+            "TP": 0,
+            "FP": 461,
+            "FN": 0,
+            "TN": 17291,
+            "accuracy": 97.4
+        },
+        "distractor_negation": {
+            "TP": 386,
+            "FP": 0,
+            "FN": 17366,
+            "TN": 0,
+            "accuracy": 2.17
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 74,
+                "FP": 26,
+                "FN": 4998,
+                "TN": 5046,
+                "accuracy": 50.47
+            },
+            "verbal_input": {
+                "TP": 0,
+                "FP": 26,
+                "FN": 0,
+                "TN": 5046,
+                "accuracy": 99.49
+            },
+            "verbal_distractor": {
+                "TP": 74,
+                "FP": 0,
+                "FN": 4998,
+                "TN": 0,
+                "accuracy": 1.46
+            },
+            "analytic_all": {
+                "TP": 130,
+                "FP": 301,
+                "FN": 15086,
+                "TN": 14915,
+                "accuracy": 49.44
+            },
+            "analytic_input": {
+                "TP": 0,
+                "FP": 301,
+                "FN": 0,
+                "TN": 14915,
+                "accuracy": 98.02
+            },
+            "analytic_distractor": {
+                "TP": 130,
+                "FP": 0,
+                "FN": 15086,
+                "TN": 0,
+                "accuracy": 0.85
+            },
+            "clausal_all": {
+                "TP": 74,
+                "FP": 26,
+                "FN": 4998,
+                "TN": 5046,
+                "accuracy": 50.47
+            },
+            "clausal_input": {
+                "TP": 0,
+                "FP": 26,
+                "FN": 0,
+                "TN": 5046,
+                "accuracy": 99.49
+            },
+            "clausal_distractor": {
+                "TP": 74,
+                "FP": 0,
+                "FN": 4998,
+                "TN": 0,
+                "accuracy": 1.46
+            },
+            "non_verbal_all": {
+                "TP": 312,
+                "FP": 435,
+                "FN": 12368,
+                "TN": 12245,
+                "accuracy": 49.51
+            },
+            "non_verbal_input": {
+                "TP": 0,
+                "FP": 435,
+                "FN": 0,
+                "TN": 12245,
+                "accuracy": 96.57
+            },
+            "non_verbal_distractor": {
+                "TP": 312,
+                "FP": 0,
+                "FN": 12368,
+                "TN": 0,
+                "accuracy": 2.46
+            },
+            "subclausal_all": {
+                "TP": 312,
+                "FP": 435,
+                "FN": 12368,
+                "TN": 12245,
+                "accuracy": 49.51
+            },
+            "subclausal_input": {
+                "TP": 0,
+                "FP": 435,
+                "FN": 0,
+                "TN": 12245,
+                "accuracy": 96.57
+            },
+            "subclausal_distractor": {
+                "TP": 312,
+                "FP": 0,
+                "FN": 12368,
+                "TN": 0,
+                "accuracy": 2.46
+            },
+            "synthetic_all": {
+                "TP": 256,
+                "FP": 160,
+                "FN": 2280,
+                "TN": 2376,
+                "accuracy": 51.89
+            },
+            "synthetic_input": {
+                "TP": 0,
+                "FP": 160,
+                "FN": 0,
+                "TN": 2376,
+                "accuracy": 93.69
+            },
+            "synthetic_distractor": {
+                "TP": 256,
+                "FP": 0,
+                "FN": 2280,
+                "TN": 0,
+                "accuracy": 10.09
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 634,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 7,
+                "Incoherent": 627,
+                "Coherence_percentage": 1.1
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 0,
+                "Incoherent": 634,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 15,
+                "Incoherent": 619,
+                "Coherence_percentage": 2.37
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 0,
+                "Incoherent": 634,
+                "Coherence_percentage": 0.0
+            }
+        }
+    },
+    "Part": {
+        "all_affirmations": {
+            "TP": 1961,
+            "FP": 878,
+            "FN": 427,
+            "TN": 1510,
+            "accuracy": 72.68
+        },
+        "input_affirmation": {
+            "TP": 1961,
+            "FP": 0,
+            "FN": 427,
+            "TN": 0,
+            "accuracy": 82.12
+        },
+        "all": {
+            "TP": 1985,
+            "FP": 1263,
+            "FN": 3985,
+            "TN": 4707,
+            "accuracy": 56.05
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 878,
+            "FN": 0,
+            "TN": 1510,
+            "accuracy": 63.23
+        },
+        "all_negations": {
+            "TP": 24,
+            "FP": 385,
+            "FN": 3558,
+            "TN": 3197,
+            "accuracy": 44.96
+        },
+        "input_negation": {
+            "TP": 0,
+            "FP": 385,
+            "FN": 0,
+            "TN": 3197,
+            "accuracy": 89.25
+        },
+        "distractor_negation": {
+            "TP": 24,
+            "FP": 0,
+            "FN": 3558,
+            "TN": 0,
+            "accuracy": 0.67
+        },
+        "Negation_analysis": {
+            "non_verbal_all": {
+                "TP": 22,
+                "FP": 384,
+                "FN": 2764,
+                "TN": 2402,
+                "accuracy": 43.5
+            },
+            "non_verbal_input": {
+                "TP": 0,
+                "FP": 384,
+                "FN": 0,
+                "TN": 2402,
+                "accuracy": 86.22
+            },
+            "non_verbal_distractor": {
+                "TP": 22,
+                "FP": 0,
+                "FN": 2764,
+                "TN": 0,
+                "accuracy": 0.79
+            },
+            "analytic_all": {
+                "TP": 7,
+                "FP": 372,
+                "FN": 3177,
+                "TN": 2812,
+                "accuracy": 44.27
+            },
+            "analytic_input": {
+                "TP": 0,
+                "FP": 372,
+                "FN": 0,
+                "TN": 2812,
+                "accuracy": 88.32
+            },
+            "analytic_distractor": {
+                "TP": 7,
+                "FP": 0,
+                "FN": 3177,
+                "TN": 0,
+                "accuracy": 0.22
+            },
+            "subclausal_all": {
+                "TP": 22,
+                "FP": 384,
+                "FN": 2764,
+                "TN": 2402,
+                "accuracy": 43.5
+            },
+            "subclausal_input": {
+                "TP": 0,
+                "FP": 384,
+                "FN": 0,
+                "TN": 2402,
+                "accuracy": 86.22
+            },
+            "subclausal_distractor": {
+                "TP": 22,
+                "FP": 0,
+                "FN": 2764,
+                "TN": 0,
+                "accuracy": 0.79
+            },
+            "verbal_all": {
+                "TP": 2,
+                "FP": 1,
+                "FN": 794,
+                "TN": 795,
+                "accuracy": 50.06
+            },
+            "verbal_input": {
+                "TP": 0,
+                "FP": 1,
+                "FN": 0,
+                "TN": 795,
+                "accuracy": 99.87
+            },
+            "verbal_distractor": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 794,
+                "TN": 0,
+                "accuracy": 0.25
+            },
+            "clausal_all": {
+                "TP": 2,
+                "FP": 1,
+                "FN": 794,
+                "TN": 795,
+                "accuracy": 50.06
+            },
+            "clausal_input": {
+                "TP": 0,
+                "FP": 1,
+                "FN": 0,
+                "TN": 795,
+                "accuracy": 99.87
+            },
+            "clausal_distractor": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 794,
+                "TN": 0,
+                "accuracy": 0.25
+            },
+            "synthetic_all": {
+                "TP": 17,
+                "FP": 13,
+                "FN": 381,
+                "TN": 385,
+                "accuracy": 50.5
+            },
+            "synthetic_input": {
+                "TP": 0,
+                "FP": 13,
+                "FN": 0,
+                "TN": 385,
+                "accuracy": 96.73
+            },
+            "synthetic_distractor": {
+                "TP": 17,
+                "FP": 0,
+                "FN": 381,
+                "TN": 0,
+                "accuracy": 4.27
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 199,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 31,
+                "Incoherent": 168,
+                "Coherence_percentage": 15.58
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 15,
+                "Incoherent": 184,
+                "Coherence_percentage": 7.54
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 39,
+                "Incoherent": 160,
+                "Coherence_percentage": 19.6
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 0,
+                "Incoherent": 199,
+                "Coherence_percentage": 0.0
+            }
+        }
+    },
+    "Substance": {
+        "all_affirmations": {
+            "TP": 176,
+            "FP": 32,
+            "FN": 34,
+            "TN": 178,
+            "accuracy": 84.29
+        },
+        "input_affirmation": {
+            "TP": 176,
+            "FP": 0,
+            "FN": 34,
+            "TN": 0,
+            "accuracy": 83.81
+        },
+        "all": {
+            "TP": 193,
+            "FP": 104,
+            "FN": 395,
+            "TN": 484,
+            "accuracy": 57.57
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 32,
+            "FN": 0,
+            "TN": 178,
+            "accuracy": 84.76
+        },
+        "all_negations": {
+            "TP": 17,
+            "FP": 72,
+            "FN": 361,
+            "TN": 306,
+            "accuracy": 42.72
+        },
+        "input_negation": {
+            "TP": 0,
+            "FP": 72,
+            "FN": 0,
+            "TN": 306,
+            "accuracy": 80.95
+        },
+        "distractor_negation": {
+            "TP": 17,
+            "FP": 0,
+            "FN": 361,
+            "TN": 0,
+            "accuracy": 4.5
+        },
+        "Negation_analysis": {
+            "non_verbal_all": {
+                "TP": 10,
+                "FP": 72,
+                "FN": 284,
+                "TN": 222,
+                "accuracy": 39.46
+            },
+            "non_verbal_input": {
+                "TP": 0,
+                "FP": 72,
+                "FN": 0,
+                "TN": 222,
+                "accuracy": 75.51
+            },
+            "non_verbal_distractor": {
+                "TP": 10,
+                "FP": 0,
+                "FN": 284,
+                "TN": 0,
+                "accuracy": 3.4
+            },
+            "synthetic_all": {
+                "TP": 5,
+                "FP": 0,
+                "FN": 37,
+                "TN": 42,
+                "accuracy": 55.95
+            },
+            "synthetic_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 42,
+                "accuracy": 100.0
+            },
+            "synthetic_distractor": {
+                "TP": 5,
+                "FP": 0,
+                "FN": 37,
+                "TN": 0,
+                "accuracy": 11.9
+            },
+            "subclausal_all": {
+                "TP": 10,
+                "FP": 72,
+                "FN": 284,
+                "TN": 222,
+                "accuracy": 39.46
+            },
+            "subclausal_input": {
+                "TP": 0,
+                "FP": 72,
+                "FN": 0,
+                "TN": 222,
+                "accuracy": 75.51
+            },
+            "subclausal_distractor": {
+                "TP": 10,
+                "FP": 0,
+                "FN": 284,
+                "TN": 0,
+                "accuracy": 3.4
+            },
+            "verbal_all": {
+                "TP": 7,
+                "FP": 0,
+                "FN": 77,
+                "TN": 84,
+                "accuracy": 54.17
+            },
+            "verbal_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 84,
+                "accuracy": 100.0
+            },
+            "verbal_distractor": {
+                "TP": 7,
+                "FP": 0,
+                "FN": 77,
+                "TN": 0,
+                "accuracy": 8.33
+            },
+            "analytic_all": {
+                "TP": 12,
+                "FP": 72,
+                "FN": 324,
+                "TN": 264,
+                "accuracy": 41.07
+            },
+            "analytic_input": {
+                "TP": 0,
+                "FP": 72,
+                "FN": 0,
+                "TN": 264,
+                "accuracy": 78.57
+            },
+            "analytic_distractor": {
+                "TP": 12,
+                "FP": 0,
+                "FN": 324,
+                "TN": 0,
+                "accuracy": 3.57
+            },
+            "clausal_all": {
+                "TP": 7,
+                "FP": 0,
+                "FN": 77,
+                "TN": 84,
+                "accuracy": 54.17
+            },
+            "clausal_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 84,
+                "accuracy": 100.0
+            },
+            "clausal_distractor": {
+                "TP": 7,
+                "FP": 0,
+                "FN": 77,
+                "TN": 0,
+                "accuracy": 8.33
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 21,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 0,
+                "Incoherent": 21,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 0,
+                "Incoherent": 21,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 9,
+                "Incoherent": 12,
+                "Coherence_percentage": 42.86
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 0,
+                "Incoherent": 21,
+                "Coherence_percentage": 0.0
+            }
+        }
+    },
+    "Member": {
+        "all_affirmations": {
+            "TP": 40,
+            "FP": 14,
+            "FN": 26,
+            "TN": 52,
+            "accuracy": 69.7
+        },
+        "input_affirmation": {
+            "TP": 40,
+            "FP": 0,
+            "FN": 26,
+            "TN": 0,
+            "accuracy": 60.61
+        },
+        "all": {
+            "TP": 40,
+            "FP": 36,
+            "FN": 301,
+            "TN": 305,
+            "accuracy": 50.59
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 14,
+            "FN": 0,
+            "TN": 52,
+            "accuracy": 78.79
+        },
+        "all_negations": {
+            "TP": 0,
+            "FP": 22,
+            "FN": 275,
+            "TN": 253,
+            "accuracy": 46.0
+        },
+        "input_negation": {
+            "TP": 0,
+            "FP": 22,
+            "FN": 0,
+            "TN": 253,
+            "accuracy": 92.0
+        },
+        "distractor_negation": {
+            "TP": 0,
+            "FP": 0,
+            "FN": 275,
+            "TN": 0,
+            "accuracy": 0.0
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 66,
+                "TN": 66,
+                "accuracy": 50.0
+            },
+            "verbal_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 66,
+                "accuracy": 100.0
+            },
+            "verbal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 66,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "analytic_all": {
+                "TP": 0,
+                "FP": 22,
+                "FN": 242,
+                "TN": 220,
+                "accuracy": 45.45
+            },
+            "analytic_input": {
+                "TP": 0,
+                "FP": 22,
+                "FN": 0,
+                "TN": 220,
+                "accuracy": 90.91
+            },
+            "analytic_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 242,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "clausal_all": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 66,
+                "TN": 66,
+                "accuracy": 50.0
+            },
+            "clausal_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 66,
+                "accuracy": 100.0
+            },
+            "clausal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 66,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "non_verbal_all": {
+                "TP": 0,
+                "FP": 22,
+                "FN": 209,
+                "TN": 187,
+                "accuracy": 44.74
+            },
+            "non_verbal_input": {
+                "TP": 0,
+                "FP": 22,
+                "FN": 0,
+                "TN": 187,
+                "accuracy": 89.47
+            },
+            "non_verbal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 209,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "subclausal_all": {
+                "TP": 0,
+                "FP": 22,
+                "FN": 209,
+                "TN": 187,
+                "accuracy": 44.74
+            },
+            "subclausal_input": {
+                "TP": 0,
+                "FP": 22,
+                "FN": 0,
+                "TN": 187,
+                "accuracy": 89.47
+            },
+            "subclausal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 209,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "synthetic_all": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 33,
+                "TN": 33,
+                "accuracy": 50.0
+            },
+            "synthetic_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 33,
+                "accuracy": 100.0
+            },
+            "synthetic_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 33,
+                "TN": 0,
+                "accuracy": 0.0
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 11,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 0,
+                "Incoherent": 11,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 0,
+                "Incoherent": 11,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 0,
+                "Incoherent": 11,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 0,
+                "Incoherent": 11,
+                "Coherence_percentage": 0.0
+            }
+        }
+    },
+    "Agent": {
+        "all_affirmations": {
+            "TP": 41,
+            "FP": 1,
+            "FN": 19,
+            "TN": 59,
+            "accuracy": 83.33
+        },
+        "input_affirmation": {
+            "TP": 41,
+            "FP": 0,
+            "FN": 19,
+            "TN": 0,
+            "accuracy": 68.33
+        },
+        "all": {
+            "TP": 43,
+            "FP": 1,
+            "FN": 77,
+            "TN": 119,
+            "accuracy": 67.5
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 1,
+            "FN": 0,
+            "TN": 59,
+            "accuracy": 98.33
+        },
+        "all_negations": {
+            "TP": 2,
+            "FP": 0,
+            "FN": 58,
+            "TN": 60,
+            "accuracy": 51.67
+        },
+        "input_negation": {
+            "TP": 0,
+            "FP": 0,
+            "FN": 0,
+            "TN": 60,
+            "accuracy": 100.0
+        },
+        "distractor_negation": {
+            "TP": 2,
+            "FP": 0,
+            "FN": 58,
+            "TN": 0,
+            "accuracy": 3.33
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 58,
+                "TN": 60,
+                "accuracy": 51.67
+            },
+            "verbal_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 60,
+                "accuracy": 100.0
+            },
+            "verbal_distractor": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 58,
+                "TN": 0,
+                "accuracy": 3.33
+            },
+            "analytic_all": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 58,
+                "TN": 60,
+                "accuracy": 51.67
+            },
+            "analytic_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 60,
+                "accuracy": 100.0
+            },
+            "analytic_distractor": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 58,
+                "TN": 0,
+                "accuracy": 3.33
+            },
+            "clausal_all": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 58,
+                "TN": 60,
+                "accuracy": 51.67
+            },
+            "clausal_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 60,
+                "accuracy": 100.0
+            },
+            "clausal_distractor": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 58,
+                "TN": 0,
+                "accuracy": 3.33
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 2,
+                "Incoherent": 58,
+                "Coherence_percentage": 3.33
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 41,
+                "Incoherent": 19,
+                "Coherence_percentage": 68.33
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 3,
+                "Incoherent": 57,
+                "Coherence_percentage": 5.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 40,
+                "Incoherent": 20,
+                "Coherence_percentage": 66.67
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 2,
+                "Incoherent": 58,
+                "Coherence_percentage": 3.33
+            }
+        }
+    },
+    "Instrument": {
+        "all_affirmations": {
+            "TP": 31,
+            "FP": 4,
+            "FN": 5,
+            "TN": 32,
+            "accuracy": 87.5
+        },
+        "input_affirmation": {
+            "TP": 31,
+            "FP": 0,
+            "FN": 5,
+            "TN": 0,
+            "accuracy": 86.11
+        },
+        "all": {
+            "TP": 31,
+            "FP": 14,
+            "FN": 203,
+            "TN": 220,
+            "accuracy": 53.63
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 4,
+            "FN": 0,
+            "TN": 32,
+            "accuracy": 88.89
+        },
+        "all_negations": {
+            "TP": 0,
+            "FP": 10,
+            "FN": 198,
+            "TN": 188,
+            "accuracy": 47.47
+        },
+        "input_negation": {
+            "TP": 0,
+            "FP": 10,
+            "FN": 0,
+            "TN": 188,
+            "accuracy": 94.95
+        },
+        "distractor_negation": {
+            "TP": 0,
+            "FP": 0,
+            "FN": 198,
+            "TN": 0,
+            "accuracy": 0.0
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 36,
+                "TN": 36,
+                "accuracy": 50.0
+            },
+            "verbal_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 36,
+                "accuracy": 100.0
+            },
+            "verbal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 36,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "analytic_all": {
+                "TP": 0,
+                "FP": 10,
+                "FN": 180,
+                "TN": 170,
+                "accuracy": 47.22
+            },
+            "analytic_input": {
+                "TP": 0,
+                "FP": 10,
+                "FN": 0,
+                "TN": 170,
+                "accuracy": 94.44
+            },
+            "analytic_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 180,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "clausal_all": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 36,
+                "TN": 36,
+                "accuracy": 50.0
+            },
+            "clausal_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 36,
+                "accuracy": 100.0
+            },
+            "clausal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 36,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "non_verbal_all": {
+                "TP": 0,
+                "FP": 10,
+                "FN": 162,
+                "TN": 152,
+                "accuracy": 46.91
+            },
+            "non_verbal_input": {
+                "TP": 0,
+                "FP": 10,
+                "FN": 0,
+                "TN": 152,
+                "accuracy": 93.83
+            },
+            "non_verbal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 162,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "subclausal_all": {
+                "TP": 0,
+                "FP": 10,
+                "FN": 162,
+                "TN": 152,
+                "accuracy": 46.91
+            },
+            "subclausal_input": {
+                "TP": 0,
+                "FP": 10,
+                "FN": 0,
+                "TN": 152,
+                "accuracy": 93.83
+            },
+            "subclausal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 162,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "synthetic_all": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 18,
+                "TN": 18,
+                "accuracy": 50.0
+            },
+            "synthetic_input": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 0,
+                "TN": 18,
+                "accuracy": 100.0
+            },
+            "synthetic_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 18,
+                "TN": 0,
+                "accuracy": 0.0
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 9,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 4,
+                "Incoherent": 5,
+                "Coherence_percentage": 44.44
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 0,
+                "Incoherent": 9,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 5,
+                "Incoherent": 4,
+                "Coherence_percentage": 55.56
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 0,
+                "Incoherent": 9,
+                "Coherence_percentage": 0.0
+            }
+        }
+    },
+    "Result": {
+        "all_affirmations": {
+            "TP": 584,
+            "FP": 263,
+            "FN": 136,
+            "TN": 457,
+            "accuracy": 72.29
+        },
+        "input_affirmation": {
+            "TP": 584,
+            "FP": 0,
+            "FN": 136,
+            "TN": 0,
+            "accuracy": 81.11
+        },
+        "all": {
+            "TP": 586,
+            "FP": 290,
+            "FN": 1214,
+            "TN": 1510,
+            "accuracy": 58.22
+        },
+        "distractor_affirmation": {
+            "TP": 0,
+            "FP": 263,
+            "FN": 0,
+            "TN": 457,
+            "accuracy": 63.47
+        },
+        "all_negations": {
+            "TP": 2,
+            "FP": 27,
+            "FN": 1078,
+            "TN": 1053,
+            "accuracy": 48.84
+        },
+        "input_negation": {
+            "TP": 0,
+            "FP": 27,
+            "FN": 0,
+            "TN": 1053,
+            "accuracy": 97.5
+        },
+        "distractor_negation": {
+            "TP": 2,
+            "FP": 0,
+            "FN": 1078,
+            "TN": 0,
+            "accuracy": 0.19
+        },
+        "Negation_analysis": {
+            "verbal_all": {
+                "TP": 2,
+                "FP": 10,
+                "FN": 318,
+                "TN": 310,
+                "accuracy": 48.75
+            },
+            "verbal_input": {
+                "TP": 0,
+                "FP": 10,
+                "FN": 0,
+                "TN": 310,
+                "accuracy": 96.88
+            },
+            "verbal_distractor": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 318,
+                "TN": 0,
+                "accuracy": 0.62
+            },
+            "analytic_all": {
+                "TP": 2,
+                "FP": 25,
+                "FN": 958,
+                "TN": 935,
+                "accuracy": 48.8
+            },
+            "analytic_input": {
+                "TP": 0,
+                "FP": 25,
+                "FN": 0,
+                "TN": 935,
+                "accuracy": 97.4
+            },
+            "analytic_distractor": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 958,
+                "TN": 0,
+                "accuracy": 0.21
+            },
+            "clausal_all": {
+                "TP": 0,
+                "FP": 1,
+                "FN": 240,
+                "TN": 239,
+                "accuracy": 49.79
+            },
+            "clausal_input": {
+                "TP": 0,
+                "FP": 1,
+                "FN": 0,
+                "TN": 239,
+                "accuracy": 99.58
+            },
+            "clausal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 240,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "non_verbal_all": {
+                "TP": 0,
+                "FP": 17,
+                "FN": 760,
+                "TN": 743,
+                "accuracy": 48.88
+            },
+            "non_verbal_input": {
+                "TP": 0,
+                "FP": 17,
+                "FN": 0,
+                "TN": 743,
+                "accuracy": 97.76
+            },
+            "non_verbal_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 760,
+                "TN": 0,
+                "accuracy": 0.0
+            },
+            "subclausal_all": {
+                "TP": 2,
+                "FP": 26,
+                "FN": 838,
+                "TN": 814,
+                "accuracy": 48.57
+            },
+            "subclausal_input": {
+                "TP": 0,
+                "FP": 26,
+                "FN": 0,
+                "TN": 814,
+                "accuracy": 96.9
+            },
+            "subclausal_distractor": {
+                "TP": 2,
+                "FP": 0,
+                "FN": 838,
+                "TN": 0,
+                "accuracy": 0.24
+            },
+            "synthetic_all": {
+                "TP": 0,
+                "FP": 2,
+                "FN": 120,
+                "TN": 118,
+                "accuracy": 49.17
+            },
+            "synthetic_input": {
+                "TP": 0,
+                "FP": 2,
+                "FN": 0,
+                "TN": 118,
+                "accuracy": 98.33
+            },
+            "synthetic_distractor": {
+                "TP": 0,
+                "FP": 0,
+                "FN": 120,
+                "TN": 0,
+                "accuracy": 0.0
+            }
+        },
+        "coherence_scores": {
+            "All": {
+                "Coherent": 0,
+                "Incoherent": 40,
+                "Coherence_percentage": 0.0
+            },
+            "Affirmation-Negation_Input": {
+                "Coherent": 5,
+                "Incoherent": 35,
+                "Coherence_percentage": 12.5
+            },
+            "Affirmation-Negation_Distractor": {
+                "Coherent": 0,
+                "Incoherent": 40,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Affirmation": {
+                "Coherent": 0,
+                "Incoherent": 40,
+                "Coherence_percentage": 0.0
+            },
+            "Input-Distractor_Negation": {
+                "Coherent": 0,
+                "Incoherent": 40,
+                "Coherence_percentage": 0.0
+            }
+        }
+    }
+}
