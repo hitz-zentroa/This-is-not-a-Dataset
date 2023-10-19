@@ -1,15 +1,12 @@
 import os
-from typing import List, Dict, Union, Optional, Any
+from typing import Dict, Union, Optional, Any
 
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-import csv
-
+from torch.utils.data import Dataset, DataLoader
 from fastchat.conversation import get_conv_template
 from transformers import BatchEncoding, PreTrainedTokenizerBase
 
 from transformers.utils import PaddingStrategy
 
-import json
 import numpy as np
 from dataclasses import dataclass
 from datasets import load_dataset
@@ -209,7 +206,7 @@ class ThisIsNotADataset(Dataset):
         add_bos_token: bool = False,
         pattern: str = None,
         only_affirmative: bool = False,
-        only_negated: bool = False,
+        only_negative: bool = False,
         only_non_distractor: bool = False,
         only_distractor: bool = False,
     ):
@@ -234,14 +231,14 @@ class ThisIsNotADataset(Dataset):
             ]
             print(f"We are only loading examples with pattern {pattern}")
 
-        assert not (only_affirmative and only_negated)
+        assert not (only_affirmative and only_negative)
 
         assert not (only_non_distractor and only_distractor)
 
         if only_affirmative:
             print(f"We are only loading affirmative examples")
-        if only_negated:
-            print(f"We are only loading negated examples")
+        if only_negative:
+            print(f"We are only loading negative examples")
 
         if only_non_distractor:
             print(f"We are only loading non-distractor examples")
@@ -256,7 +253,7 @@ class ThisIsNotADataset(Dataset):
             if only_affirmative:
                 if example["negation_type"] == "affirmation":
                     load = False
-            if only_negated:
+            if only_negative:
                 if example["negation_type"] != "affirmation":
                     load = False
             if only_non_distractor:
@@ -445,7 +442,7 @@ def get_dataloader(
     num_workers: int = min(8, os.cpu_count()),
     pattern: str = None,
     only_affirmative: bool = False,
-    only_negated: bool = False,
+    only_negative: bool = False,
     only_non_distractor: bool = False,
     only_distractor: bool = False,
 ) -> DataLoader:
@@ -476,8 +473,8 @@ def get_dataloader(
             The pattern to use for training. Defaults to `None`.
         only_affirmative (`bool`, optional):
             Whether to only load affirmative examples for training. Defaults to `False`.
-        only_negated (`bool`, optional):
-            Whether to only load negated examples for training. Defaults to `False`.
+        only_negative (`bool`, optional):
+            Whether to only load negative examples for training. Defaults to `False`.
         only_non_distractor (`bool`, optional):
             Whether to only load non-distractor examples for training. Defaults to `False`.
         only_distractor (`bool`, optional):
@@ -505,7 +502,7 @@ def get_dataloader(
         add_bos_token=add_bos_token,
         pattern=pattern,
         only_affirmative=only_affirmative,
-        only_negated=only_negated,
+        only_negative=only_negative,
         only_non_distractor=only_non_distractor,
         only_distractor=only_distractor,
     )

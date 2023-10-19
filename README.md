@@ -10,8 +10,8 @@
     <a href="https://huggingface.co/datasets/HiTZ/This-is-not-a-dataset"><img alt="Public Dataset" src="https://img.shields.io/badge/🤗HuggingFace-Dataset-green"></a>
     <a href="HiTZ/This-is-not-a-dataset"><img alt="Paper" src="https://img.shields.io/badge/📖-Paper-orange"></a>
 <br>
-     <a href="http://www.hitz.eus/"><img src="https://img.shields.io/badge/HiTZ-Basque%20Center%20for%20Language%20Technology-blueviolet"></a>
-    <a href="http://www.ixa.eus/?language=en"><img src="https://img.shields.io/badge/IXA-%20NLP%20Group-ff3333"></a>
+     <a href="https://www.hitz.eus/"><img src="https://img.shields.io/badge/HiTZ-Basque%20Center%20for%20Language%20Technology-blueviolet"></a>
+    <a href="https://www.ixa.eus/?language=en"><img src="https://img.shields.io/badge/IXA-%20NLP%20Group-ff3333"></a>
 <a href="https://www.ehu.eus/en/web/lorea/web-gunea"><img src="https://img.shields.io/badge/LoRea-%20Logic%20and%20Reasoning%20Group-ff3"></a>
     <br>
      <br>
@@ -76,7 +76,7 @@ pip3 install --upgrade torch transformers accelerate fschat wandb bitsandbytes p
 ## Evaluating a LLM
 
 We provide a script to evaluate any LLM in the dataset. First, you need to create a configuration file. 
-See [config/zero-shot](config/zero-shot) for an example. This script will evaluate the model in our dataset in zero-shot setting.
+See [config/zero-shot](configs/zero-shot) for an example. This script will evaluate the model in our dataset in zero-shot setting.
 Here is an example config to evaluate LLama2-7b Chat:
 
 ```yaml
@@ -119,7 +119,7 @@ accelerate launch --multi_gpu --num_processes 2 run.py configs/zero-shot/Llama2-
 ```
 
 ## Training a LLM
-You can train a LLMs in our dataset. First, you need to create a configuration file. See [config/finetune](config/finetune) for an example. Here is an example config to finetune LLama2-7b Chat:
+You can train a LLMs in our dataset. First, you need to create a configuration file. See [configs/train](configs/train) for an example. Here is an example config to finetune LLama2-7b Chat:
 
 ```yaml
 #Model args
@@ -143,8 +143,8 @@ max_seq_length: 512
 pattern: null
 # Train only on affirmative sentences
 only_affirmative: False
-# Train only on negated sentences
-only_negated: False
+# Train only on negative sentences
+only_negative: False
 # Train only on sentences without a distractor
 only_non_distractor: False
 # Train only on sentences with a distractor
@@ -195,14 +195,16 @@ python3 evaluate.py --predictions_path <path_to_input_file>.jsonl --output_path 
 ### Scorer Result Interpretation
 The scorer will output the following metrics. See the [results/](results/) folder for an example of the output of the scorer.
 - **all_affirmations**: Accuracy of the model in affirmative sentences
-- **all_negations**: Accuracy of the model in negated sentences
+- **all_negations**: Accuracy of the model in negative sentences
 - **all**: (Overall) Accuracy of the model in all sentences
 - **input_affirmation**: Accuracy of the model in affirmative sentences without distractors
-- **input_negation**: Accuracy of the model in negated sentences without distractors
+- **input_negation**: Accuracy of the model in negative sentences without distractors
 - **distractor_affirmation**: Accuracy of the model in affirmative sentences with distractors
-- **distractor_negation**: Accuracy of the model in negated sentences with distractors
-- **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic, clausal, non_verbal, synthetic, subclausal negation types)
+- **distractor_negation**: Accuracy of the model in negative sentences with distractors
+- **Negation_analysis**: Fine-grained analysis of the model in negative sentences (verbal, analytic, clausal, non_verbal, synthetic, subclausal negation types)
+- **coherence_scores**: Coherence scores of the predictions. `Affirmation-Negation_Input` refers to the coherence between the affirmative and negative sentences without distractor. Similarly `Affirmation-Negation_Distractor` refers to the coherence between the affirmative and negative sentences with distractor. Read the paper for more information about the Coherence metric.  
 - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
+
 
 
 

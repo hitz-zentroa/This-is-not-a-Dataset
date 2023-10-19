@@ -102,8 +102,9 @@ class ModelArguments:
         default=False,
         metadata={
             "help": (
-                "Whether to use the FlashAttention. If True, we will use FlashAttention. Be careful, not all models"
-                " support FlashAttention. See https://github.com/huggingface/transformers/issues/26350. Defaults to False."
+                "Whether to use the FlashAttention. If True, we will use FlashAttention. Be careful, not all models "
+                "support FlashAttention. See https://github.com/huggingface/transformers/issues/26350. "
+                "Defaults to False."
             )
         },
     )
@@ -185,11 +186,11 @@ class DataTrainingArguments:
         },
     )
 
-    only_negated: bool = field(
+    only_negative: bool = field(
         default=False,
         metadata={
             "help": (
-                "Whether to only load negated examples for training. Defaults to `False`."
+                "Whether to only load negative examples for training. Defaults to `False`."
             )
         },
     )

@@ -16,7 +16,7 @@ max_seq_length: 512
 
 pattern: null
 only_affirmative: False
-only_negated: False
+only_negative: False
 only_non_distractor: False
 only_distractor: False
 

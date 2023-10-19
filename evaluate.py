@@ -243,9 +243,9 @@ class Coherence_Scorer:
     ):
         # print(len(examples))
         affirmative_answers = []
-        negated_answers = []
+        negative_answers = []
         affirmative_distractor_answers = []
-        negated_distractor_answers = []
+        negative_distractor_answers = []
         for example in examples:
             example["label"] = convert_to_bool(example["label"])
             example["prediction"] = convert_to_bool(example["prediction"])
@@ -306,31 +306,31 @@ class Coherence_Scorer:
             if isDistractor and negation_type == "affirmation":
                 affirmative_distractor_answers.append(example["prediction"])
             elif isDistractor and negation_type != "affirmation":
-                negated_distractor_answers.append(example["prediction"])
+                negative_distractor_answers.append(example["prediction"])
             elif not isDistractor and negation_type == "affirmation":
                 affirmative_answers.append(example["prediction"])
             else:
-                negated_answers.append(example["prediction"])
+                negative_answers.append(example["prediction"])
 
         non_distractor_coherent = True
         distractor_coherent = True
 
         # print(f"Affirmative Answers: {affirmative_answers}")
-        # print(f"Negated Answers: {negated_answers}")
+        # print(f"negative Answers: {negative_answers}")
         # print(f"Affirmative Distractor Answers: {affirmative_distractor_answers}")
-        # print(f"Negated Distractor Answers: {negated_distractor_answers}")
+        # print(f"negative Distractor Answers: {negative_distractor_answers}")
 
         # Affirmation-Negation_Input
         # If all answers are not the same, then the answer is incoherent
-        if len(set(affirmative_answers)) > 1 or len(set(negated_answers)) > 1:
+        if len(set(affirmative_answers)) > 1 or len(set(negative_answers)) > 1:
             self.test_results["Affirmation-Negation_Input"]["Incoherent"] += 1
             non_distractor_coherent = False
 
         else:
-            # If all in affirmative_answers is True, then all negated_answers should be False and vice versa
-            if len(affirmative_answers) == 0 or len(negated_answers) == 0:
+            # If all in affirmative_answers is True, then all negative_answers should be False and vice versa
+            if len(affirmative_answers) == 0 or len(negative_answers) == 0:
                 print(json.dumps(examples, indent=4))
-            if affirmative_answers[0] == negated_answers[0]:
+            if affirmative_answers[0] == negative_answers[0]:
                 self.test_results["Affirmation-Negation_Input"]["Incoherent"] += 1
                 non_distractor_coherent = False
             else:
@@ -340,14 +340,14 @@ class Coherence_Scorer:
         # If all answers are not the same, then the answer is incoherent
         if (
             len(set(affirmative_distractor_answers)) > 1
-            or len(set(negated_distractor_answers)) > 1
+            or len(set(negative_distractor_answers)) > 1
         ):
             self.test_results["Affirmation-Negation_Distractor"]["Incoherent"] += 1
             distractor_coherent = False
 
         else:
-            # If all in affirmative_answers is True, then all negated_answers should be False and vice versa
-            if affirmative_distractor_answers[0] == negated_distractor_answers[0]:
+            # If all in affirmative_answers is True, then all negative_answers should be False and vice versa
+            if affirmative_distractor_answers[0] == negative_distractor_answers[0]:
                 self.test_results["Affirmation-Negation_Distractor"]["Incoherent"] += 1
                 distractor_coherent = False
             else:
@@ -391,12 +391,12 @@ class Coherence_Scorer:
 
             # Compute Input-Distractor_Negation
             if (
-                len(set(negated_answers)) > 1
-                or len(set(negated_distractor_answers)) > 1
+                len(set(negative_answers)) > 1
+                or len(set(negative_distractor_answers)) > 1
             ):
                 self.test_results["Input-Distractor_Negation"]["Incoherent"] += 1
             else:
-                if negated_answers[0] == negated_distractor_answers[0]:
+                if negative_answers[0] == negative_distractor_answers[0]:
                     self.test_results["Input-Distractor_Negation"]["Incoherent"] += 1
                 else:
                     self.test_results["Input-Distractor_Negation"]["Coherent"] += 1
@@ -416,22 +416,22 @@ class Coherence_Scorer:
                     self.test_results["Input-Distractor_Affirmation"]["Coherent"] += 1
             # Compute Input-Distractor_Negation
             if (
-                len(set(negated_answers)) > 1
-                or len(set(negated_distractor_answers)) > 1
+                len(set(negative_answers)) > 1
+                or len(set(negative_distractor_answers)) > 1
             ):
                 self.test_results["Input-Distractor_Negation"]["Incoherent"] += 1
             else:
-                if negated_answers[0] != negated_distractor_answers[0]:
+                if negative_answers[0] != negative_distractor_answers[0]:
                     self.test_results["Input-Distractor_Negation"]["Incoherent"] += 1
                 else:
                     self.test_results["Input-Distractor_Negation"]["Coherent"] += 1
 
         # print(
         #    f"affirmative_answers: {affirmative_answers} "
-        #    f"negated_answers: {negated_answers} "
+        #    f"negative_answers: {negative_answers} "
         #    f"affirmative_distractor_answers: "
         #    f"{affirmative_distractor_answers} "
-        #    f"negated_distractor_answers: {negated_distractor_answers} \n"
+        #    f"negative_distractor_answers: {negative_distractor_answers} \n"
         #    f"non_distractor_coherent: {non_distractor_coherent} "
         #    f"distractor_coherent: {distractor_coherent} \n"
         # )
@@ -509,13 +509,13 @@ def evaluate(predictions_path: str, output_path: Optional[str] = None) -> dict:
         A dictionary with the scores
         The scorer will output the following metrics:
             - **all_affirmations**: Accuracy of the model in affirmative sentences
-            - **all_negations**: Accuracy of the model in negated sentences
+            - **all_negations**: Accuracy of the model in negative sentences
             - **all**: (Overall) Accuracy of the model in all sentences
             - **input_affirmation**: Accuracy of the model in affirmative sentences without distractors
-            - **input_negation**: Accuracy of the model in negated sentences without distractors
+            - **input_negation**: Accuracy of the model in negative sentences without distractors
             - **distractor_affirmation**: Accuracy of the model in affirmative sentences with distractors
-            - **distractor_negation**: Accuracy of the model in negated sentences with distractors
-            - **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic,
+            - **distractor_negation**: Accuracy of the model in negative sentences with distractors
+            - **Negation_analysis**: Fine-grained analysis of the model in negative sentences (verbal, analytic,
             clausal, non_verbal, synthetic, subclausal negation types)
             - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
     """
@@ -525,13 +525,13 @@ def evaluate(predictions_path: str, output_path: Optional[str] = None) -> dict:
 *************************************** Running evaluation ***************************************
 The scorer will output the following metrics:
     - **all_affirmations**: Accuracy of the model in affirmative sentences
-    - **all_negations**: Accuracy of the model in negated sentences
+    - **all_negations**: Accuracy of the model in negative sentences
     - **all**: (Overall) Accuracy of the model in all sentences
     - **input_affirmation**: Accuracy of the model in affirmative sentences without distractors
-    - **input_negation**: Accuracy of the model in negated sentences without distractors
+    - **input_negation**: Accuracy of the model in negative sentences without distractors
     - **distractor_affirmation**: Accuracy of the model in affirmative sentences with distractors
-    - **distractor_negation**: Accuracy of the model in negated sentences with distractors
-    - **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic,
+    - **distractor_negation**: Accuracy of the model in negative sentences with distractors
+    - **Negation_analysis**: Fine-grained analysis of the model in negative sentences (verbal, analytic,
     clausal, non_verbal, synthetic, subclausal negation types)
     - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
 **************************************************************************************************
