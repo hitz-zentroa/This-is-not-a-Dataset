@@ -1,6 +1,6 @@
 #Model args
 model_name_or_path: google/flan-t5-xxl
-torch_dtype: "float32"
+torch_dtype: "auto"
 use_lora: true
 quantization: 4
 predict_with_generate: false

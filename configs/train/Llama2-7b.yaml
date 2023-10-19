@@ -1,6 +1,6 @@
 #Model args
 model_name_or_path: meta-llama/Llama-2-7b-chat-hf
-torch_dtype: "float32"
+torch_dtype: "auto"
 use_lora: true
 quantization: 4
 predict_with_generate: false

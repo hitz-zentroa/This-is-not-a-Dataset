@@ -1,7 +1,7 @@
 #Model args
 model_name_or_path: google/flan-t5-xxl
 torch_dtype: "float32"
-quantization: 4
+quantization: 8
 predict_with_generate: false
 per_device_eval_batch_size: 32
 conversation_template: null
