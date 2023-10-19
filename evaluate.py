@@ -523,17 +523,17 @@ def evaluate(predictions_path: str, output_path: Optional[str] = None) -> dict:
     print(
         """
     **** Running evaluation ****
-    The scorer will output the following metrics:
-            - **all_affirmations**: Accuracy of the model in affirmative sentences
-            - **all_negations**: Accuracy of the model in negated sentences
-            - **all**: (Overall) Accuracy of the model in all sentences
-            - **input_affirmation**: Accuracy of the model in affirmative sentences without distractors
-            - **input_negation**: Accuracy of the model in negated sentences without distractors
-            - **distractor_affirmation**: Accuracy of the model in affirmative sentences with distractors
-            - **distractor_negation**: Accuracy of the model in negated sentences with distractors
-            - **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic,
-            clausal, non_verbal, synthetic, subclausal negation types)
-            - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
+The scorer will output the following metrics:
+    - **all_affirmations**: Accuracy of the model in affirmative sentences
+    - **all_negations**: Accuracy of the model in negated sentences
+    - **all**: (Overall) Accuracy of the model in all sentences
+    - **input_affirmation**: Accuracy of the model in affirmative sentences without distractors
+    - **input_negation**: Accuracy of the model in negated sentences without distractors
+    - **distractor_affirmation**: Accuracy of the model in affirmative sentences with distractors
+    - **distractor_negation**: Accuracy of the model in negated sentences with distractors
+    - **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic,
+    clausal, non_verbal, synthetic, subclausal negation types)
+    - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
     *****************
     """
     )
