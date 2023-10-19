@@ -32,7 +32,7 @@ We also provide the code to <b>train</b> and <b>evaluate</b> any LLM in the data
 
 ## Dataset
 
-The easiest way to download the dataset is using the 🤗HuggingFace Hub. See the [Dataset Card](https://huggingface.co/datasets/HiTZ/This-is-not-a-dataset) for more information about the dataset.
+The easiest and recommended way to download the dataset is using the 🤗HuggingFace Hub. See the [Dataset Card](https://huggingface.co/datasets/HiTZ/This-is-not-a-dataset) for more information about the dataset.
 
 ```python
 from datasets import load_dataset
@@ -40,7 +40,7 @@ from datasets import load_dataset
 dataset = load_dataset("HiTZ/This-is-not-a-dataset")
 ```
 
-However, we also distribute the dataset in this repository. See [data/README.md](data/README.md) for more information.
+We also distribute the dataset in this repository. See [data/README.md](data/README.md) for more information.
 
 ## Requirements
 The scorer `evaluate.py` does not require any dependency. If you want to run the training or evaluation code you need:
