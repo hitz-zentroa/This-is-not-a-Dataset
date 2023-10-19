@@ -2,6 +2,7 @@
 model_name_or_path: lmsys/vicuna-13b-v1.1 # we use v1.1 in the paper, but lmsys/vicuna-13b-v1.5 is the latest version
 torch_dtype: "auto"
 quantization: 4
+force_auto_device_map: false
 predict_with_generate: false
 per_device_eval_batch_size: 32
 conversation_template: vicuna_v1.1

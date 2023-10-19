@@ -3,6 +3,23 @@ from typing import Dict, List, Any, Optional
 import argparse
 
 
+def convert_to_bool(value):
+    if isinstance(value, str) and value.lower().strip() in ["true", "false"]:
+        value = value.lower().strip() == "true"
+    elif isinstance(value, bool):
+        pass
+    elif isinstance(value, int) and value in [0, 1]:
+        value = value == 1
+    elif isinstance(value, float) and int(value) in [
+        0,
+    ]:
+        value = int(value) == 1
+    else:
+        raise Exception(f"Unknown value type: {type(value)}")
+
+    return value
+
+
 class Scorer:
     def __init__(self):
         self.results = {}
@@ -16,23 +33,9 @@ class Scorer:
         gold_label,
         predicted_label,
     ):
-        if type(gold_label) == str:
-            gold_label = gold_label.lower() == "true"
-        elif type(gold_label) == bool:
-            pass
-        elif type(gold_label) == int:
-            gold_label = gold_label == 1
-        else:
-            raise Exception(f"Unknown gold_label type: {type(gold_label)}")
-
-        if type(predicted_label) == str:
-            predicted_label = predicted_label.lower() == "true"
-        elif type(predicted_label) == bool:
-            pass
-        elif type(predicted_label) == int:
-            predicted_label = predicted_label == 1
-        else:
-            raise Exception(f"Unknown predicted_label type: {type(predicted_label)}")
+        gold_label = convert_to_bool(gold_label)
+        predicted_label = convert_to_bool(predicted_label)
+        isDistractor = convert_to_bool(isDistractor)
 
         # Compute score affirmation/negation
         if negation_type == "affirmation":
@@ -244,7 +247,10 @@ class Coherence_Scorer:
         affirmative_distractor_answers = []
         negated_distractor_answers = []
         for example in examples:
-            isDistractor = bool(example["isDistractor"])
+            example["label"] = convert_to_bool(example["label"])
+            example["prediction"] = convert_to_bool(example["prediction"])
+
+            isDistractor = convert_to_bool(example["isDistractor"])
             negation_type = example["negation_type"]
             if test_no != 2 and test_no != 4:
                 if (
@@ -501,8 +507,36 @@ def evaluate(predictions_path: str, output_path: Optional[str] = None) -> dict:
         output_path: Path to the output file. If None, the output will be printed to stdout
     Returns:
         A dictionary with the scores
+        The scorer will output the following metrics:
+            - **all_affirmations**: Accuracy of the model in affirmative sentences
+            - **all_negations**: Accuracy of the model in negated sentences
+            - **all**: (Overall) Accuracy of the model in all sentences
+            - **input_affirmation**: Accuracy of the model in affirmative sentences without distractors
+            - **input_negation**: Accuracy of the model in negated sentences without distractors
+            - **distractor_affirmation**: Accuracy of the model in affirmative sentences with distractors
+            - **distractor_negation**: Accuracy of the model in negated sentences with distractors
+            - **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic,
+            clausal, non_verbal, synthetic, subclausal negation types)
+            - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
     """
 
+    print(
+        """
+    **** Running evaluation ****
+    The scorer will output the following metrics:
+            - **all_affirmations**: Accuracy of the model in affirmative sentences
+            - **all_negations**: Accuracy of the model in negated sentences
+            - **all**: (Overall) Accuracy of the model in all sentences
+            - **input_affirmation**: Accuracy of the model in affirmative sentences without distractors
+            - **input_negation**: Accuracy of the model in negated sentences without distractors
+            - **distractor_affirmation**: Accuracy of the model in affirmative sentences with distractors
+            - **distractor_negation**: Accuracy of the model in negated sentences with distractors
+            - **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic,
+            clausal, non_verbal, synthetic, subclausal negation types)
+            - **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
+    *****************
+    """
+    )
     dataset_pattern = {
         "Synonymy1": [],
         "Antonymy1": [],
@@ -559,7 +593,10 @@ def evaluate(predictions_path: str, output_path: Optional[str] = None) -> dict:
         print(f"Saving scores to {output_path}")
         with open(output_path, "w", encoding="utf8") as file:
             print(json.dumps(scores, ensure_ascii=False, indent=4), file=file)
+    else:
+        print(json.dumps(scores, ensure_ascii=False, indent=4))
 
+    print("*** Evaluation finished ***")
     return scores
 
 
@@ -575,7 +612,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--output_path",
         type=str,
-        required=True,
+        required=False,
+        default=None,
         help="Path to the output file",
     )
 
@@ -585,7 +623,6 @@ if __name__ == "__main__":
         predictions_path=args.predictions_path,
         output_path=args.output_path,
     )
-
 
 """
 python3 evaluate.py \

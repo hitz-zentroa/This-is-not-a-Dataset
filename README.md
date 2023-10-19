@@ -12,23 +12,27 @@
 <br>
      <a href="http://www.hitz.eus/"><img src="https://img.shields.io/badge/HiTZ-Basque%20Center%20for%20Language%20Technology-blueviolet"></a>
     <a href="http://www.ixa.eus/?language=en"><img src="https://img.shields.io/badge/IXA-%20NLP%20Group-ff3333"></a>
+<a href="https://www.ehu.eus/en/web/lorea/web-gunea"><img src="https://img.shields.io/badge/LoRea-%20Logic%20and%20Reasoning%20Group-ff3"></a>
     <br>
      <br>
 </p>
 
 <h3 align="center">"A Large Negation Benchmark to Challenge Large Language Models"</h3>
     
-
+<p align="justify">
 We introduce a large semi-automatically generated dataset of ~400,000 descriptive sentences about commonsense knowledge that can be true or false in which negation is present in about 2/3 of the corpus in different forms that we use to evaluate LLMs.
+</p>
 
 - 📖 Paper: [This is not a Dataset: A Large Negation Benchmark to Challenge Large Language Models (EMNLP'23)]()
 - Dataset available in the 🤗HuggingFace Hub: [HiTZ/This-is-not-a-dataset](https://huggingface.co/datasets/HiTZ/This-is-not-a-dataset)
 
-We also provide the code to **train** and ***evaluate** any LLM in the dataset, as well as the **scorer** to reproduce the results of the paper.
+<p align="justify">
+We also provide the code to <b>train</b> and <b>evaluate</b> any LLM in the dataset, as well as the <b>scorer</b> to reproduce the results of the paper.
+</p>
 
 ## Dataset
 
-The easiest way to download the dataset is using the 🤗HuggingFace Hub:
+The easiest way to download the dataset is using the 🤗HuggingFace Hub. See the [Dataset Card](https://huggingface.co/datasets/HiTZ/This-is-not-a-dataset) for more information about the dataset.
 
 ```python
 from datasets import load_dataset
@@ -64,9 +68,12 @@ pip install bitsandbytes
 
 PEFT >= 0.4.0 # For LoRA
 pip install peft
+
+# You can install all the dependencies with:
+pip3 install --upgrade torch transformers accelerate fschat wandb bitsandbytes peft 
 ```
 
-## Evaluating a LLMs
+## Evaluating a LLM
 
 We provide a script to evaluate any LLM in the dataset. First, you need to create a configuration file. 
 See [config/zero-shot](config/zero-shot) for an example. This script will evaluate the model in our dataset in zero-shot setting.
@@ -79,6 +86,8 @@ model_name_or_path: meta-llama/Llama-2-7b-chat-hf
 torch_dtype: "auto"
 # Performs quatization using bitsandbytes integration. Allows evaluating LLMs in consumer hardware
 quantization: 4
+# If force_auto_device_map is set to True. We will split the model into all the available GPUs and CPU, this is useful for large models that do not fit in a single GPU VRAM. 
+force_auto_device_map: false
 # If set to false, we will sample the probability of generating the True or False tokens (recommended). If set to true, the model will generate a text and we will attempt to locate the string "true" or "false" in the output.
 predict_with_generate: false
 # Batch size for evaluation. We use auto_batch_finder, so this value is only used to set the maximum batch size, if the batch does not fit in memory, it will be reduced.
@@ -104,7 +113,12 @@ Once you have created the config file, you can run the evaluation script:
 accelerate launch run.py configs/zero-shot/Llama2-7b.yaml
 ```
 
-## Training a LLMs
+You can use accelerate to run the evaluation in multiple GPUs. See [accelerate documentation](https://github.com/huggingface/accelerate) for more information.
+```bash
+accelerate launch --multi_gpu --num_processes 2 run.py configs/zero-shot/Llama2-7b.yaml
+```
+
+## Training a LLM
 You can train a LLMs in our dataset. First, you need to create a configuration file. See [config/finetune](config/finetune) for an example. Here is an example config to finetune LLama2-7b Chat:
 
 ```yaml
@@ -116,6 +130,7 @@ use_lora: true
 quantization: 4
 predict_with_generate: false
 conversation_template: llama-2
+force_auto_device_map: false
 
 # Dataset arguments
 do_train: true
@@ -123,6 +138,17 @@ do_eval: true
 do_predict: true
 do_predict_full_dataset: false
 max_seq_length: 512
+
+# Train only on a pattern i.e Synonymy1, Hypernymy, etc...
+pattern: null
+# Train only on affirmative sentences
+only_affirmative: False
+# Train only on negated sentences
+only_negated: False
+# Train only on sentences without a distractor
+only_non_distractor: False
+# Train only on sentences with a distractor
+only_distractor: False
 
 #Training arguments
 per_device_train_batch_size: 32
@@ -142,8 +168,13 @@ output_dir: results/finetune/Llama-2-7b-chat-hf
 Once you have created the config file, you can run the training script:
 
 ```bash
+# Single GPU with bfloat16 mixed precision
 accelerate launch --mixed_precision bf16 run.py configs/train/Llama2-7b.yaml
+# Multi GPU with bfloat16 mixed precision
+accelerate launch --multi_gpu --num_processes 2 --mixed_precision bf16 run.py configs/train/Llama2-7b.yaml
 ```
+
+
 
 ## Scorer
 If you use our `run.py` script, the models will be automatically evaluated. But you might want to evaluate results generated by your custom code. 
@@ -154,6 +185,18 @@ should contain the prediction for each example as a boolean `true` or `false`. E
 {"pattern_id": 1, "pattern": "Synonymy1", "test_id": 0, "negation_type": "affirmation", "semantic_type": "none", "syntactic_scope": "none", "isDistractor": false, "label": true, "sentence": "An introduction is commonly the first section of a communication.", "prediction": true}
 {"pattern_id": 1, "pattern": "Synonymy1", "test_id": 0, "negation_type": "affirmation", "semantic_type": "none", "syntactic_scope": "none", "isDistractor": true, "label": false, "sentence": "An introduction is commonly the largest possible quantity.", "prediction": false}
 ```
+
+### Result interpretation
+The scorer will output the following metrics:
+- **all_affirmations**: Accuracy of the model in affirmative sentences
+- **all_negations**: Accuracy of the model in negated sentences
+- **all**: (Overall) Accuracy of the model in all sentences
+- **input_affirmation**: Accuracy of the model in affirmative sentences without distractors
+- **input_negation**: Accuracy of the model in negated sentences without distractors
+- **distractor_affirmation**: Accuracy of the model in affirmative sentences with distractors
+- **distractor_negation**: Accuracy of the model in negated sentences with distractors
+- **Negation_analysis**: Fine-grained analysis of the model in negated sentences (verbal, analytic, clausal, non_verbal, synthetic, subclausal negation types)
+- **Synonymy1, Hypernymy, Part...**: Fine-grained analysis of the model in each pattern
 
 You can call the scorer with the following command:
 

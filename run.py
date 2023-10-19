@@ -214,9 +214,9 @@ def gen_predictions(
                         pred = pred.lower()
 
                         if "true" in pred:
-                            all_preds.append("True")
+                            all_preds.append(True)
                         else:
-                            all_preds.append("False")
+                            all_preds.append(False)
 
         if accelerator.is_local_main_process:
             with open(output_path, "w", encoding="utf8") as f:
@@ -230,7 +230,7 @@ def gen_predictions(
                     os.path.splitext(output_path)[0] + ".jsonl", "w", encoding="utf8"
                 ) as f:
                     for json_line, pred in zip(json_dataset, all_preds):
-                        json_line["prediction"] = pred
+                        json_line["prediction"] = bool(pred)
                         print(json.dumps(json_line, ensure_ascii=False), file=f)
 
     model.train()

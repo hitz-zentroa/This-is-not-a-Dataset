@@ -25,6 +25,20 @@ from datasets import load_dataset
 dataset = load_dataset("HiTZ/This-is-not-a-dataset")
 ```
 
+# Data explanation
+
+- **pattern_id** (int): The ID of the pattern,in range [1,11]
+- **pattern** (str): The name of the pattern
+- **test_id** (int): For each pattern we use a set of templates to instanciate the triples. Examples are grouped in triples by test id
+- **negation_type** (str): Affirmation, verbal, non-verbal
+- **semantic_type** (str): None (for affirmative sentences), analytic, synthetic
+- **syntactic_scope** (str): None (for affirmative sentences), clausal, subclausal
+- **isDistractor** (bool): We use distractors (randonly selectec synsets) to generate false kwoledge.
+- **<span style="color:green">sentence</span>**  (str): The sentence. <ins>This is the input of the model</ins>
+- **<span style="color:green">label</span>** (bool): The label of the example, True if the statement is true, False otherwise. <ins>This is the target of the model</ins>
+
+For the pattern files in `This-is-not-a-dataset.zip` test_id is a `string` with the format `template_id`-`template_variation`, for example `3-1`, `3-2`. For the `train.jsonl`, `dev.jsonl`, `test.jsonl` and `test.jsonl` files, as well as the dataset in the HuggingFace Hub we have replaced this string with a unique identifier (int) for each triple to facilitate grouping triples and evaluation.
+
 # Citation
 The paper will be presented at EMNLP 2023, the citation will be available soon. For now, you can use the following bibtex:
 

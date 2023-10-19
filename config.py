@@ -159,7 +159,20 @@ class DataTrainingArguments:
         metadata={
             "help": (
                 "The pattern to use for training. If not specified, all patterns will be used."
-            )
+            ),
+            "choices": [
+                "Synonymy1",
+                "Antonymy1",
+                "Synonymy2",
+                "Antonymy2",
+                "Hypernymy",
+                "Part",
+                "Substance",
+                "Member",
+                "Agent",
+                "Instrument",
+                "Result",
+            ],
         },
     )
 
