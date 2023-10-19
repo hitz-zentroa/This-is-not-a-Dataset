@@ -184,6 +184,7 @@ should contain the prediction for each example as a boolean `true` or `false`. E
 ```jsonlines
 {"pattern_id": 1, "pattern": "Synonymy1", "test_id": 0, "negation_type": "affirmation", "semantic_type": "none", "syntactic_scope": "none", "isDistractor": false, "label": true, "sentence": "An introduction is commonly the first section of a communication.", "prediction": true}
 {"pattern_id": 1, "pattern": "Synonymy1", "test_id": 0, "negation_type": "affirmation", "semantic_type": "none", "syntactic_scope": "none", "isDistractor": true, "label": false, "sentence": "An introduction is commonly the largest possible quantity.", "prediction": false}
+...
 ```
 
 ### Result interpretation
