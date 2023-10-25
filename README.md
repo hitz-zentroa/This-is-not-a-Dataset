@@ -8,7 +8,7 @@
     <a href="https://twitter.com/intent/tweet?text=Wow+this+new+Dataset+is+amazing:&url=https%3A%2F%2Fgithub.com%2Fhitz-zentroa%2FThis-is-not-a-Dataset"><img alt="Twitter" src="https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fhitz-zentroa%2FThis-is-not-a-Dataset"></a>
     <a href="https://github.com/hitz-zentroa/This-is-not-a-Dataset/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/hitz-zentroa/This-is-not-a-Dataset"></a>
     <a href="https://huggingface.co/datasets/HiTZ/This-is-not-a-dataset"><img alt="Public Dataset" src="https://img.shields.io/badge/🤗HuggingFace-Dataset-green"></a>
-    <a href="HiTZ/This-is-not-a-dataset"><img alt="Paper" src="https://img.shields.io/badge/📖-Paper-orange"></a>
+    <a href="https://arxiv.org/abs/2310.15941"><img alt="Paper" src="https://img.shields.io/badge/📖-Paper-orange"></a>
 <br>
      <a href="https://www.hitz.eus/"><img src="https://img.shields.io/badge/HiTZ-Basque%20Center%20for%20Language%20Technology-blueviolet"></a>
     <a href="https://www.ixa.eus/?language=en"><img src="https://img.shields.io/badge/IXA-%20NLP%20Group-ff3333"></a>
@@ -23,7 +23,7 @@
 We introduce a large semi-automatically generated dataset of ~400,000 descriptive sentences about commonsense knowledge that can be true or false in which negation is present in about 2/3 of the corpus in different forms that we use to evaluate LLMs.
 </p>
 
-- 📖 Paper: [This is not a Dataset: A Large Negation Benchmark to Challenge Large Language Models (EMNLP'23)]()
+- 📖 Paper: [This is not a Dataset: A Large Negation Benchmark to Challenge Large Language Models (EMNLP'23)](https://arxiv.org/abs/2310.15941)
 - Dataset available in the 🤗HuggingFace Hub: [HiTZ/This-is-not-a-dataset](https://huggingface.co/datasets/HiTZ/This-is-not-a-dataset)
 
 <p align="justify">
