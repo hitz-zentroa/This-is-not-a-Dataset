@@ -210,14 +210,25 @@ The scorer will output the following metrics. See the [results/](results/) folde
 
 
 # Citation
-The paper will be presented at EMNLP 2023, the citation will be available soon. For now, you can use the following bibtex:
 
 ```bibtex
-@inproceedings{this-is-not-a-dataset,
+@inproceedings{garcia-ferrero-etal-2023-dataset,
     title = "This is not a Dataset: A Large Negation Benchmark to Challenge Large Language Models",
-    author = "Iker García-Ferrero, Begoña Altuna, Javier Alvez, Itziar Gonzalez-Dios, German Rigau",
-    booktitle = "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
+    author = "Garc{\'\i}a-Ferrero, Iker  and
+      Altuna, Bego{\~n}a  and
+      Alvez, Javier  and
+      Gonzalez-Dios, Itziar  and
+      Rigau, German",
+    editor = "Bouamor, Houda  and
+      Pino, Juan  and
+      Bali, Kalika",
+    booktitle = "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
     year = "2023",
+    address = "Singapore",
     publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.emnlp-main.531",
+    doi = "10.18653/v1/2023.emnlp-main.531",
+    pages = "8596--8615",
 }
 ```
