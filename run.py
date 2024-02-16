@@ -174,7 +174,7 @@ def gen_predictions(
                             preds = preds[: (len(dataloader.dataset) - samples_seen)]
                             logits = logits[: (len(dataloader.dataset) - samples_seen)]
                         else:
-                            samples_seen += len(batch)
+                            samples_seen += len(preds)
 
                     all_preds.extend(preds)
                     all_scores.extend(logits)
@@ -227,7 +227,9 @@ def gen_predictions(
 
             if not return_scores:
                 json_dataset = dataloader.dataset.get_jsonl()
-                assert len(json_dataset) == len(all_preds)
+                assert len(json_dataset) == len(
+                    all_preds
+                ), f"{len(json_dataset)} != {len(all_preds)}"
                 with open(
                     os.path.splitext(output_path)[0] + ".jsonl", "w", encoding="utf8"
                 ) as f:
