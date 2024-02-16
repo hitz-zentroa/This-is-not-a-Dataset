@@ -4,7 +4,6 @@ import os
 from typing import List, Optional, Tuple, Union
 
 import torch
-
 from transformers import (
     AutoConfig,
     AutoModelForCausalLM,
@@ -290,8 +289,8 @@ def load_model(
 
     if isinstance(quantization, str):
         quantization = int(quantization)
-    assert (quantization is None) or (
-        quantization in [4, 8]
+    assert (
+        (quantization is None) or (quantization in [4, 8])
     ), f"Quantization must be 4 or 8, or None for FP32/FP16 training. You passed: {quantization}"
 
     if not inference and quantization is not None and not use_lora:
@@ -388,15 +387,11 @@ def load_model(
     # Load the model weights
 
     #  Get the quantization config
-    quant_args = {}
     torch_dtype = (
         torch_dtype if torch_dtype in ["auto", None] else getattr(torch, torch_dtype)
     )
 
     if quantization is not None:
-        quant_args = (
-            {"load_in_4bit": True} if quantization == 4 else {"load_in_8bit": True}
-        )
         if quantization == 4:
             bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
@@ -460,7 +455,6 @@ def load_model(
         torch_dtype=torch_dtype,
         config=config,
         trust_remote_code=trust_remote_code,
-        **quant_args,
         **kwargs,
     )
 
