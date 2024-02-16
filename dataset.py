@@ -1,3 +1,4 @@
+import logging
 import os
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
@@ -52,6 +53,14 @@ def prepare_data(
         label = example["label"]
     else:
         raise ValueError(f"Label {example['label']} is not a valid label.")
+
+    if tokenizer.chat_template is None:
+        logging.warning(
+            (
+                "Chat template is not set in the tokenizer. We won't use any chat template for the prompt. "
+                "If you are using an instruction-tuned model, this will likely result in worse performance."
+            )
+        )
 
     if not fewshot:
         if tokenizer.chat_template is not None:
