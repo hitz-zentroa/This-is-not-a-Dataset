@@ -439,11 +439,10 @@ def load_model(
             f"CausalLM: {MODEL_FOR_CAUSAL_LM_MAPPING_NAMES}\n"
         )
 
-    #  Load the model weights
-    # Flash attention 2 was added to HuggingFace transformers very recently. Let's add it as kwargs to the load function
-    # so if it is set to False, we can load the model in older versions of transformers.
-    if use_flash_attention:
-        kwargs = {"use_flash_attention_2": True}
+    # Load the model weights
+    # Disable for T5/FLanT5 models
+    if use_flash_attention and not config.model_type == "seq2seq":
+        kwargs = {"attn_implementation": "flash_attention_2"}
     else:
         kwargs = {}
 

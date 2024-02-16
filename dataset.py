@@ -88,12 +88,12 @@ def prepare_data(
 
     if tokenizer.chat_template is not None:
         prompt_w_answer = tokenizer.apply_chat_template(
-            [{"role": "user", "content": prompt}],
             [
+                {"role": "user", "content": prompt},
                 {
                     "role": "assistant",
                     "content": "True" if label == 1 else "False",
-                }
+                },
             ],
             tokenize=False,
             add_generation_prompt=False,
