@@ -441,7 +441,7 @@ def load_model(
 
     # Load the model weights
     # Disable for T5/FLanT5 models
-    if use_flash_attention and not config.model_type == "seq2seq":
+    if use_flash_attention and not model_type == "seq2seq":
         kwargs = {"attn_implementation": "flash_attention_2"}
     else:
         kwargs = {}
