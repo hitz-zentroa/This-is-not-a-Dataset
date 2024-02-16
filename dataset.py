@@ -1,15 +1,14 @@
 import os
-from typing import Dict, Union, Optional, Any
-
-from torch.utils.data import Dataset, DataLoader
-from fastchat.conversation import get_conv_template
-from transformers import BatchEncoding, PreTrainedTokenizerBase
-
-from transformers.utils import PaddingStrategy
+from dataclasses import dataclass
+from typing import Any, Dict, Optional, Union
 
 import numpy as np
-from dataclasses import dataclass
 from datasets import load_dataset
+from torch.utils.data import DataLoader, Dataset
+from transformers import BatchEncoding, PreTrainedTokenizerBase
+from transformers.utils import PaddingStrategy
+
+from fewshot import get_few_shot
 
 
 def prepare_data(
@@ -17,10 +16,9 @@ def prepare_data(
     tokenizer: PreTrainedTokenizerBase,
     is_encoder_decoder: bool = False,
     max_length: int = 2048,
-    conv_template: str = None,
     train: bool = False,
     prompt_loss_weight: float = 0.05,
-    add_bos_token: bool = False,
+    fewshot: bool = False,
 ) -> BatchEncoding:
     """
     Prepare data for training or inference.
@@ -34,57 +32,75 @@ def prepare_data(
             Whether the model is an encoder-decoder model. Defaults to `False`.
         max_length (`int`, optional):
             The maximum length of the input. Defaults to `2048`.
-        conv_template (`str`, optional):
-            The conversation template to use. Defaults to `None`. If `None` we will return the prompt.
         train (`bool`, optional):
             Whether we are training or not. Defaults to `False`.
         prompt_loss_weight (`float`, optional):
             The weight of the prompt tokens in the loss. If set to '0.05' the prompt tokens will have a total weight
             of 5% in the loss while the result tokens will have a total weight of 95%. Defaults to `0.05`.
-        add_bos_token (`bool`, optional):
-            Whether to add the BOS token to the prompt (encoder-only models). Defaults to `False`.
+        fewshot (`bool`, optional):
+            Wheter to add fewshot examples to the prompt. Defaults to `False`.
 
     Returns:
         `BatchEncoding`: `BatchEncoding` with the prepared data.
     """
 
-    if type(example["label"]) == bool:
+    if isinstance(type(example["label"]), bool):
         label = 1 if example["label"] else 0
-    elif type(example["label"]) == str:
+    elif isinstance(type(example["label"]), str):
         label = 1 if example["label"].lower() == "true" else 0
-    elif type(example["label"]) == int:
+    elif isinstance(type(example["label"]), int):
         label = example["label"]
     else:
         raise ValueError(f"Label {example['label']} is not a valid label.")
 
-    if is_encoder_decoder:
-        if conv_template is not None:
+    if not fewshot:
+        if tokenizer.chat_template is not None:
             prompt = f"Is the following statement True or False? Answer only True or False. {example['sentence'].strip()}"
         else:
             prompt = f"Is the following statement True or False? {example['sentence'].strip()}"
+
     else:
-        prompt = (
-            f"Is the following statement True or False? {example['sentence'].strip()}"
+        if tokenizer.chat_template is not None:
+            prompt = (
+                "Is the following statement True or False? Answer only True or False.\n"
+                "Here are some examples:\n"
+                f"{get_few_shot()}\n\n"
+                f"{example['sentence'].strip()}"
+            )
+        else:
+            prompt = (
+                "Is the following statement True or False?"
+                f"{get_few_shot()}\n\n"
+                f"{example['sentence'].strip()}"
+            )
+
+            if not is_encoder_decoder:
+                prompt = f"{prompt} "  # Add a space at the end so the next token to predict is True or False
+
+    if tokenizer.chat_template is not None:
+        prompt_w_answer = tokenizer.apply_chat_template(
+            [{"role": "user", "content": prompt}],
+            [
+                {
+                    "role": "assistant",
+                    "content": "True" if label == 1 else "False",
+                }
+            ],
+            tokenize=False,
+            add_generation_prompt=False,
         )
 
-    if conv_template is not None:
-        conv = get_conv_template(conv_template)
-        conv.append_message(conv.roles[0], prompt)
-        conv.append_message(
-            conv.roles[1],
-            "True" if label == 1 else "False",
+        prompt_wo_answer = tokenizer.apply_chat_template(
+            [{"role": "user", "content": prompt}],
+            tokenize=False,
+            add_generation_prompt=True,
         )
-        prompt_w_answer = conv.get_prompt()
-
-        conv = get_conv_template(conv_template)
-        conv.append_message(conv.roles[0], prompt)
-        conv.append_message(conv.roles[1], None)
-
-        prompt_wo_answer = conv.get_prompt()
 
     else:
         prompt_wo_answer = prompt
-        prompt_w_answer = f"{prompt} True" if label == 1 else f"{prompt} False"
+        prompt_w_answer = (
+            f"{prompt.strip()} True" if label == 1 else f"{prompt.strip()} False"
+        )
 
     if is_encoder_decoder:
         model_inputs = tokenizer(
@@ -119,15 +135,6 @@ def prepare_data(
             add_special_tokens=True,
         )
 
-        if add_bos_token:
-            if model_inputs["input_ids"][0] != tokenizer.bos_token_id:
-                model_inputs["input_ids"] = np.insert(
-                    model_inputs["input_ids"], 0, tokenizer.bos_token_id
-                )
-                model_inputs["attention_mask"] = np.insert(
-                    model_inputs["attention_mask"], 0, 1
-                )
-
         if train:
             model_inputs["labels"] = model_inputs["input_ids"].copy()
 
@@ -144,11 +151,6 @@ def prepare_data(
             # Remove the last token if it is an eos token
             if prompt_wo_answer[-1] == tokenizer.eos_token_id:
                 prompt_wo_answer = prompt_wo_answer[:-1]
-            if add_bos_token:
-                if prompt_wo_answer[0] != tokenizer.bos_token_id:
-                    prompt_wo_answer = np.insert(
-                        prompt_wo_answer, 0, tokenizer.bos_token_id
-                    )
 
             if len(prompt_wo_answer) > len(model_inputs["labels"]):
                 raise ValueError(
@@ -201,9 +203,8 @@ class ThisIsNotADataset(Dataset):
         split: str,
         is_encoder_decoder: bool = False,
         max_length: int = 2048,
-        conv_template: str = None,
+        fewshot: bool = False,
         prompt_loss_weight: float = 0.05,
-        add_bos_token: bool = False,
         pattern: str = None,
         only_affirmative: bool = False,
         only_negative: bool = False,
@@ -236,14 +237,14 @@ class ThisIsNotADataset(Dataset):
         assert not (only_non_distractor and only_distractor)
 
         if only_affirmative:
-            print(f"We are only loading affirmative examples")
+            print("We are only loading affirmative examples")
         if only_negative:
-            print(f"We are only loading negative examples")
+            print("We are only loading negative examples")
 
         if only_non_distractor:
-            print(f"We are only loading non-distractor examples")
+            print("We are only loading non-distractor examples")
         if only_distractor:
-            print(f"We are only loading distractor examples")
+            print("We are only loading distractor examples")
 
         for example in dataset:
             load = True
@@ -272,10 +273,9 @@ class ThisIsNotADataset(Dataset):
                         tokenizer=tokenizer,
                         is_encoder_decoder=is_encoder_decoder,
                         max_length=max_length,
-                        conv_template=conv_template,
+                        fewshot=fewshot,
                         train=self.split == "train",
                         prompt_loss_weight=prompt_loss_weight,
-                        add_bos_token=add_bos_token,
                     )
                 )
 
@@ -435,10 +435,9 @@ def get_dataloader(
     split: str,
     is_encoder_decoder: bool = False,
     max_length: int = 512,
-    conv_template: str = None,
+    fewshot: bool = False,
     batch_size: int = 1,
     prompt_loss_weight: float = 0.05,
-    add_bos_token: bool = False,
     num_workers: int = min(8, os.cpu_count()),
     pattern: str = None,
     only_affirmative: bool = False,
@@ -458,8 +457,8 @@ def get_dataloader(
             Whether the model is an encoder-decoder model. Defaults to `False`.
         max_length (`int`, optional):
             The maximum length of the input. Defaults to `2048`.
-        conv_template (`str`, optional):
-            The conversation template to use. Defaults to `None`. If `None` we will return the prompt.
+        fewshot (`bool`, optional):
+            Wheter to add fewshot examples to the prompt. Defaults to `False`.
         batch_size (`int`, optional):
             The batch size. Defaults to `1`.
         prompt_loss_weight (`float`, optional):
@@ -497,9 +496,8 @@ def get_dataloader(
         split=split,
         is_encoder_decoder=is_encoder_decoder,
         max_length=max_length,
-        conv_template=conv_template,
+        fewshot=fewshot,
         prompt_loss_weight=prompt_loss_weight,
-        add_bos_token=add_bos_token,
         pattern=pattern,
         only_affirmative=only_affirmative,
         only_negative=only_negative,

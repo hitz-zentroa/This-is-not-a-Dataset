@@ -1,11 +1,8 @@
-#Model args
-model_name_or_path: google/flan-t5-xxl
 torch_dtype: "bfloat16"
 quantization: 4
 force_auto_device_map: false
 predict_with_generate: false
-per_device_eval_batch_size: 32
-use_flash_attention: false
+per_device_eval_batch_size: 8
 fewshot: false
 
 # dataset arguments
@@ -13,9 +10,5 @@ do_train: false
 do_eval: false
 do_predict: true
 do_predict_full_dataset: false
-max_seq_length: 512
-
-# Output Dir
-output_dir: results/zero-shot/flan-t5-xxl
-
+max_seq_length: null # Use the default value for the model
 

@@ -1,0 +1,14 @@
+torch_dtype: "bfloat16"
+quantization: 4
+force_auto_device_map: false
+predict_with_generate: false
+per_device_eval_batch_size: 8
+fewshot: true
+
+# dataset arguments
+do_train: false
+do_eval: false
+do_predict: true
+do_predict_full_dataset: false
+max_seq_length: null # Use the default value for the model
+
