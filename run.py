@@ -131,7 +131,7 @@ def gen_predictions(
                     first = False
 
             if not predict_with_generate:
-                if not model.config.is_encoder_decoder:
+                if not accelerator.unwrap_model(model).config.is_encoder_decoder:
                     logits = model(
                         input_ids=batch["input_ids"],
                         attention_mask=batch["attention_mask"],
