@@ -45,11 +45,11 @@ def prepare_data(
         `BatchEncoding`: `BatchEncoding` with the prepared data.
     """
 
-    if isinstance(type(example["label"]), bool):
+    if isinstance(example["label"], bool):
         label = 1 if example["label"] else 0
-    elif isinstance(type(example["label"]), str):
+    elif isinstance(example["label"], str):
         label = 1 if example["label"].lower() == "true" else 0
-    elif isinstance(type(example["label"]), int):
+    elif isinstance(example["label"], int):
         label = example["label"]
     else:
         raise ValueError(f"Label {example['label']} is not a valid label.")
