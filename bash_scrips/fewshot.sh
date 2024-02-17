@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=TINAD_zero
+#SBATCH --job-name=TINAD_fewshot
 #SBATCH --cpus-per-task=16
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:2
 #SBATCH --mem=100G
-#SBATCH --output=TINAD_zero.out.txt
-#SBATCH --error=TINAD_zero.err.txt
+#SBATCH --output=TINAD_fewshot.out.txt
+#SBATCH --error=TINAD_fewshot.err.txt
 
 
 
@@ -49,6 +49,7 @@ do
 
 
 
-accelerate launch run.py --config configs/zero-shot/base_fewshot.yaml --model_name_or_path "$model_name" --output_dir results/fewshot/"$model_name"
+accelerate launch --multi_gpu --num_processes 2 --main_process_port 29507 run.py \
+ --config configs/zero-shot/base_fewshot.yaml --model_name_or_path "$model_name" --output_dir results/fewshot//"${model_name//\//_}"
 
 done
