@@ -55,13 +55,14 @@ def prepare_data(
         raise ValueError(f"Label {example['label']} is not a valid label.")
 
     if tokenizer.chat_template is None:
-        logging.warning(
-            (
-                "Chat template is not set in the tokenizer. We won't use any chat template for the prompt. "
-                "If you are using an instruction-tuned model, this will likely result in worse performance."
+        if not hasattr(prepare_data, "_warning_logged"):
+            logging.warning(
+                (
+                    "Chat template is not set in the tokenizer. We won't use any chat template for the prompt. "
+                    "If you are using an instruction-tuned model, this will likely result in worse performance."
+                )
             )
-        )
-
+            prepare_data._warning_logged = True
     if not fewshot:
         if tokenizer.chat_template is not None:
             prompt = f"Is the following statement True or False? Answer only True or False. {example['sentence'].strip()}"
