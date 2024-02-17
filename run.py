@@ -139,28 +139,30 @@ def gen_predictions(
                 else:
                     if accelerator.num_processes > 1:
                         model = model.module
+                    with torch.autocast(
+                        "cuda"
+                    ):  # Fix fused_layer_norm_cuda RuntimeError: expected scalar type Float but found Half
+                        encoder_output = model.get_encoder()(
+                            input_ids=batch["input_ids"],
+                            attention_mask=batch["attention_mask"],
+                        )
 
-                    encoder_output = model.get_encoder()(
-                        input_ids=batch["input_ids"],
-                        attention_mask=batch["attention_mask"],
-                    )
+                        decoder_args = {
+                            "attention_mask": batch["attention_mask"],
+                            "use_cache": False,
+                            "encoder_outputs": encoder_output,
+                        }
 
-                    decoder_args = {
-                        "attention_mask": batch["attention_mask"],
-                        "use_cache": False,
-                        "encoder_outputs": encoder_output,
-                    }
+                        gen_inputs = model.prepare_inputs_for_generation(
+                            input_ids=torch.tensor(
+                                [[tokenizer.pad_token_id]] * len(batch["input_ids"])
+                            ).to(batch["input_ids"].device),
+                            **decoder_args,
+                        )
 
-                    gen_inputs = model.prepare_inputs_for_generation(
-                        input_ids=torch.tensor(
-                            [[tokenizer.pad_token_id]] * len(batch["input_ids"])
-                        ).to(batch["input_ids"].device),
-                        **decoder_args,
-                    )
-
-                    logits = model(
-                        **gen_inputs,
-                    ).logits
+                        logits = model(
+                            **gen_inputs,
+                        ).logits
 
                 logits = logits[:, -1, :]
                 logits = torch.nn.functional.softmax(logits, dim=-1)
