@@ -9,7 +9,7 @@
 
 
 
-source /ikerlariak/igarcia945/envs/evaluate/bin/activate
+source /ikerlariak/igarcia945/envs/pytorch2/bin/activate
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
