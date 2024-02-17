@@ -446,3 +446,7 @@ def get_few_shot():
     return "\n".join(
         example["sentence"] + " " + str(example["label"]) for example in examples
     )
+
+
+if __name__ == "__main__":
+    print(get_few_shot())
