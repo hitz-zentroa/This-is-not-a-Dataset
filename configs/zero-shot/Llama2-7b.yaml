@@ -1,3 +1,9 @@
+# Sample config to reproduce zero-shot results with Llama2-7b
+# Usage example:
+# 1 GPU: accelerate launch run.py --config configs/zero-shot/Llama2-7b.yaml
+# Multi-GPU: accelerate launch --multi_gpu --num_processes 2 --main_process_port 29503 run.py --config configs/zero-shot/Llama2-7b.yaml
+
+
 #Model args
 model_name_or_path: meta-llama/Llama-2-7b-chat-hf
 torch_dtype: "bfloat16"
@@ -12,7 +18,7 @@ fewshot: false
 do_train: false
 do_eval: false
 do_predict: true
-do_predict_full_dataset: true
+do_predict_full_dataset: false
 max_seq_length: 4096
 
 
