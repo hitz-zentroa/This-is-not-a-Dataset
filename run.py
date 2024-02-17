@@ -137,10 +137,13 @@ def gen_predictions(
                         attention_mask=batch["attention_mask"],
                     ).logits
                 else:
-                    if accelerator.num_processes > 1:
-                        model = model.module
+                    try:
+                        _ = model.get_encoder()
+                    except AttributeError:
+                        model = model.module  # Unwrap model if it is a DataParallel
+
                     with torch.autocast(
-                        "cuda"
+                        "cuda" if torch.cuda.is_available() else "cpu"
                     ):  # Fix fused_layer_norm_cuda RuntimeError: expected scalar type Float but found Half
                         encoder_output = model.get_encoder()(
                             input_ids=batch["input_ids"],
