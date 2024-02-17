@@ -137,6 +137,9 @@ def gen_predictions(
                         attention_mask=batch["attention_mask"],
                     ).logits
                 else:
+                    if accelerator.num_processes > 1:
+                        model = model.module
+
                     encoder_output = model.get_encoder()(
                         input_ids=batch["input_ids"],
                         attention_mask=batch["attention_mask"],
