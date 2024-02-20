@@ -432,12 +432,14 @@ def load_model(
         model_type = "causal"
 
     else:
-        raise ValueError(
-            f"Model {model_weights_name_or_path} of type {config.model_type} is not supported by CoLLIE."
-            "Supported models are:\n"
-            f"Seq2SeqLM: {MODEL_FOR_SEQ_TO_SEQ_CAUSAL_LM_MAPPING_NAMES}\n"
-            f"CausalLM: {MODEL_FOR_CAUSAL_LM_MAPPING_NAMES}\n"
+        logging.warning(
+            f"Model {model_weights_name_or_path} is not in the "
+            f"MODEL_FOR_SEQ_TO_SEQ_CAUSAL_LM_MAPPING_NAMES or MODEL_FOR_CAUSAL_LM_MAPPING_NAMES. "
+            f"We will attempt load it as a CausalLM model."
         )
+        load_fn = AutoModelForCausalLM
+        tokenizer.padding_side = "left"
+        model_type = "causal"
 
     # Load the model weights
     # Disable for T5/FLanT5 models
