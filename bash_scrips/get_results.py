@@ -1,9 +1,9 @@
-import os
+import argparse
+import json
 from pathlib import Path
+
 import matplotlib.pyplot as plt
 import seaborn as sns
-import json
-import argparse
 
 
 def get_result_table(result_dir):
@@ -68,6 +68,10 @@ def get_result_table(result_dir):
         )
 
     plt.tight_layout()  # Adjust the layout to make room for the labels
+
+    # Save the plot
+    plt.savefig(f"{result_path.name}.png")
+
     plt.show()
 
 
