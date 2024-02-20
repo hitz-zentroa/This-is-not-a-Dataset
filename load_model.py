@@ -209,7 +209,7 @@ def load_model(
     torch_dtype: Optional[str] = None,
     force_auto_device_map: bool = False,
     use_gradient_checkpointing: bool = False,
-    trust_remote_code: bool = False,
+    trust_remote_code: bool = True,
     use_flash_attention: bool = False,
     use_better_transformer: bool = False,
     fsdp_training: bool = False,
@@ -261,7 +261,7 @@ def load_model(
         use_gradient_checkpointing (`bool`, optiona):
             Whether to use gradient checkpointing for training
         trust_remote_code (`bool`, optional):
-            Trust the remote code from HuggingFace model hub. Defaults to False.
+            Trust the remote code from HuggingFace model hub. Defaults to True.
         use_flash_attention (`bool`, optional):
             Whether to use Flash Attention. Defaults to True. Flash attention must be installed, see:
             'https://github.com/Dao-AILab/flash-attention' for more details.
