@@ -443,7 +443,12 @@ def load_model(
 
     # Load the model weights
     # Disable for T5/FLanT5 models
-    if use_flash_attention and not model_type == "seq2seq":
+    # Disable for Olmo
+    if (
+        use_flash_attention
+        and not model_type == "seq2seq"
+        and "olmo" not in model_weights_name_or_path.lower()
+    ):
         kwargs = {"attn_implementation": "flash_attention_2"}
     else:
         kwargs = {}
