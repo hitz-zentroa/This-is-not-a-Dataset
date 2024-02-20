@@ -38,7 +38,7 @@ deepseek-ai/deepseek-llm-7b-chat \
 deepseek-ai/deepseek-llm-67b-chat \
 abacusai/Smaug-72B-v0.1 \
 152334H/miqu-1-70b-sf \
-alpindale/goliath-120b \
+alpindale/goliath-120b 
 do
 
 
