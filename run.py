@@ -559,6 +559,15 @@ def main(
     clean_cache()
 
     if training_args.do_predict:
+        if not training_args.do_train:
+            if os.path.exists(
+                os.path.join(training_args.output_dir, "test_results.json")
+            ):
+                print(
+                    f"Test results already exist in {training_args.output_dir}. We will skip inference."
+                )
+                return
+
         if training_args.do_train:
             print(
                 "You are doing inference after training a model! We will load the "
