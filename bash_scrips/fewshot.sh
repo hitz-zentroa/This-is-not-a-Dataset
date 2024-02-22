@@ -34,6 +34,7 @@ HuggingFaceH4/zephyr-7b-beta \
 mistralai/Mixtral-8x7B-v0.1 \
 mistralai/Mixtral-8x7B-Instruct-v0.1 \
 cognitivecomputations/dolphin-2.5-mixtral-8x7b \
+NousResearch/Nous-Hermes-2-Mistral-7B-DPO \
 NousResearch/Nous-Hermes-2-Yi-34B \
 NousResearch/Nous-Hermes-2-SOLAR-10.7B \
 NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO \
@@ -42,8 +43,11 @@ NousResearch/Nous-Hermes-2-Llama-2-70B \
 01-ai/Yi-34B \
 deepseek-ai/deepseek-llm-7b-chat \
 deepseek-ai/deepseek-llm-67b-chat \
-Qwen/Qwen1.5-72B-Chat \
+Qwen/Qwen1.5-1.8B-Chat \
+Qwen/Qwen1.5-4B-Chat \
 Qwen/Qwen1.5-7B-Chat \
+Qwen/Qwen1.5-14B-Chat \
+Qwen/Qwen1.5-72B-Chat \
 google/gemma-2b \
 google/gemma-2b-it \
 google/gemma-7b \
@@ -52,11 +56,11 @@ CohereForAI/aya-101 \
 allenai/OLMo-7B \
 microsoft/phi-2 \
 openchat/openchat-3.5-0106 \
+Tele-AI/telechat-7B \
 WizardLM/WizardLM-30B-V1.0 \
 abacusai/Smaug-72B-v0.1 \
 152334H/miqu-1-70b-sf \
-alpindale/goliath-120b \
-HiTZ/latxa-70b-v1.1
+alpindale/goliath-120b
 do
 
 
