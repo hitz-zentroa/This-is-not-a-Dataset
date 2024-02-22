@@ -119,7 +119,7 @@ accelerate launch --multi_gpu --num_processes 2 run.py configs/zero-shot/Llama2-
 
 We also support deepspeed zero 3 to split large models into multiple GPUs. See [configs/zero-shot/base_deepspeed.yaml](configs/zero-shot/base_deepspeed.yaml) for an example. 
 ```bash
-accelerate launch --use_deepspeed --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py --config configs/zero-shot/base_deepspeed.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/zero-shot/zephyr-7b-beta
+accelerate launch --use_deepspeed --num_processes 4 --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py --config configs/zero-shot/base_deepspeed.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/zero-shot/zephyr-7b-beta
 ```
 
 If you want to evaluate multiple models, you can overwrite the `model_name_or_path` and `output_dir` values of a config. 
@@ -165,7 +165,7 @@ accelerate launch --multi_gpu --num_processes 4 run.py \
  --config configs/zero-shot/base_fewshot.yaml --model_name_or_path "$model_name" --output_dir results/fewshot/"$model_name"
 
 # Run the model in bfloat16 with deepspeed zero stage 3 using 4 GPUs (Split the model across 4 GPUs)
-accelerate launch --use_deepspeed --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py \
+accelerate launch --use_deepspeed --num_processes 4 --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py \
  --config configs/zero-shot/base_fewshot_deepspeed.yaml --model_name_or_path "$model_name" --output_dir results/fewshot/"$model_name"
 ```
 
