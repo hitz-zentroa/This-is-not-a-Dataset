@@ -23,4 +23,4 @@ do_predict: true
 do_predict_full_dataset: false
 max_seq_length: null # Use the default value for the model
 
-overwrite_output_dir: true # If true we will tun the inference again if the results already exist. If false we will skip the inference.
+overwrite_output_dir: false # If true we will tun the inference again if the results already exist. If false we will skip the inference.

@@ -23,7 +23,7 @@ from transformers.models.auto.modeling_auto import MODEL_FOR_CAUSAL_LM_MAPPING_N
 from config import DataTrainingArguments, ModelArguments
 from dataset import get_dataloader
 from evaluate import evaluate
-from load_model import load_model
+from load_model import load_model, deepspeed_moe
 from optimizer import get_optimizer
 
 
@@ -282,6 +282,9 @@ def main(
             use_flash_attention=model_args.use_flash_attention,
             use_gradient_checkpointing=model_args.use_lora,
         )
+
+        if accelerator.deepspeed_config is not None:
+            model = deepspeed_moe(model)
 
         true_tokens_ids = tokenizer.encode("True", add_special_tokens=False)
         false_tokens_ids = tokenizer.encode("False", add_special_tokens=False)
@@ -595,6 +598,9 @@ def main(
             force_auto_device_map=data_args.force_auto_device_map,
             use_flash_attention=model_args.use_flash_attention,
         )
+
+        if accelerator.deepspeed_config is not None:
+            model = deepspeed_moe(model)
 
         true_tokens_ids = tokenizer.encode("True", add_special_tokens=False)
         false_tokens_ids = tokenizer.encode("False", add_special_tokens=False)

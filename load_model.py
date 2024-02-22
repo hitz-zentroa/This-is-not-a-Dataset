@@ -196,6 +196,57 @@ def merge_lora_model(
     logging.info(f"Model merged and saved in {output_path}")
 
 
+def deepspeed_moe(model):
+    """
+    If the model is a MoE model, we use the deepspeed set_z3_leaf_modules function to ensure that the model works
+    correctly.
+
+    Args:
+        model (`PreTrainedModel`):
+            The model to check for MoE layers.
+
+    Returns:
+        `PreTrainedModel`:
+            The model with the deepspeed set_z3_leaf_modules function applied if the model is a MoE model.
+    """
+    try:
+        leaf_module = model.model.layers[0].block_sparse_moe.__class__
+    except AttributeError:
+        leaf_module = None
+        logging.warning("Deepspeed enabled. The current model is not a MoE model.")
+
+    if leaf_module is not None:
+        try:
+            from deepspeed.utils import set_z3_leaf_modules
+
+            set_z3_leaf_modules(model, [leaf_module])
+            logging.warning(
+                f"MoE model detected. We have used the deepspeed set_z3_leaf_modules function to ensure"
+                f" that the model works correctly. The leaf module used is {leaf_module}. "
+                f"See https://github.com/microsoft/DeepSpeed/pull/5008 for more details."
+            )
+        except ImportError:
+            logging.warning(
+                "set_z3_leaf_modules function not found. You are not running the latest version of DeepSpeed. "
+                "You can safely ignore this warning if you are not using MoE models. If you are, "
+                "the training/inference will fail. Please update to the latest version of DeepSpeed "
+                "to fix this issue. More details at https://github.com/microsoft/DeepSpeed/pull/5008. "
+                "We will attempt to continue the training/inference."
+            )
+
+        except Exception as e:
+            logging.warning(
+                f"MoE model detected. "
+                f"Something went wrong when trying to use the deepspeed set_z3_leaf_modules function. "
+                f"Please see https://github.com/microsoft/DeepSpeed/pull/5008 for more details.\n"
+                f"The leaf module used is {leaf_module}.\n"
+                f"Error message: {e}\n"
+                f"We will attempt to continue the training/inference, although it will probably freeze/crash."
+            )
+
+    return model
+
+
 def load_model(
     inference: bool,
     model_weights_name_or_path: str,
