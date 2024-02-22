@@ -283,7 +283,7 @@ def main(
             use_gradient_checkpointing=model_args.use_lora,
         )
 
-        if accelerator.deepspeed_config is not None:
+        if accelerator.state.deepspeed_plugin is not None:
             model = deepspeed_moe(model)
 
         true_tokens_ids = tokenizer.encode("True", add_special_tokens=False)
@@ -599,7 +599,7 @@ def main(
             use_flash_attention=model_args.use_flash_attention,
         )
 
-        if accelerator.deepspeed_config is not None:
+        if accelerator.state.deepspeed_plugin is not None:
             model = deepspeed_moe(model)
 
         true_tokens_ids = tokenizer.encode("True", add_special_tokens=False)
