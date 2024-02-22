@@ -73,7 +73,7 @@ pip3 install --upgrade torch transformers accelerate wandb bitsandbytes peft
 ## Evaluating a LLM
 
 We provide a script to evaluate any LLM in the dataset. First, you need to create a configuration file. 
-See [config/zero-shot](configs/zero-shot) for an example. This script will evaluate the model in our dataset in zero-shot setting.
+See [configs/zero-shot](configs/zero-shot) for examples. This script will evaluate the model in our dataset in zero-shot setting.
 Here is an example config to evaluate LLama2-7b Chat:
 
 > We will format the inputs using the chat_template stored in the tokenizer 
@@ -99,8 +99,8 @@ do_train: false
 do_eval: false
 do_predict: true
 # For zero-shot settings, you can evaluate the model in the concatenation of the train, dev and test sets. Set to false to only evaluate in the test set.
-do_predict_full_dataset: true
-max_seq_length: 512
+do_predict_full_dataset: false
+max_seq_length: 4096
 
 # Output Dir
 output_dir: results/zero-shot/llama-2-7b-chat-hf
@@ -117,7 +117,12 @@ You can use accelerate to run the evaluation in multiple GPUs. See [accelerate d
 accelerate launch --multi_gpu --num_processes 2 run.py configs/zero-shot/Llama2-7b.yaml
 ```
 
-If you want to evaluate multiple models, you can overwrite the ´model_name_or_path´ and ´output_dir´ values of a config. 
+We also support deepspeed zero 3 to split large models into multiple GPUs. See [configs/zero-shot/base_deepspeed.yaml](configs/zero-shot/base_deepspeed.yaml) for an example. 
+```bash
+accelerate launch --use_deepspeed --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py --config configs/zero-shot/base_deepspeed.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/zero-shot/zephyr-7b-beta
+```
+
+If you want to evaluate multiple models, you can overwrite the `model_name_or_path` and `output_dir` values of a config. 
 
 ```bash
 for model_name in \
@@ -132,16 +137,41 @@ mistralai/Mixtral-8x7B-Instruct-v0.1 \
 do
 
 accelerate launch run.py --config configs/zero-shot/base.yaml --model_name_or_path "$model_name" --output_dir results/zero-shot/"$model_name"
+
+done
 ```
 
 ### Few shot examples
 
 When doing zero-shot inference, adding few-shot examples can improve the performance of the models. If you set the flag `fewshot: true` we will add 
 4 examles from each pattern (44 total) as fews-shot examples to the input. 
+See [configs/zero-shot/base_fewshot.yaml](configs/zero-shot/base_fewshot.yaml) and
+[configs/zero-shot/base_fewshot_deepspeed.yaml](configs/zero-shot/base_fewshot_deepspeed.yaml) for examples. 
+
+```bash
+for model_name in \
+meta-llama/Llama-2-70b-chat-hf \
+meta-llama/Llama-2-70b-hf \
+meta-llama/Llama-2-13b-chat-hf \
+meta-llama/Llama-2-13b-hf \
+meta-llama/Llama-2-7b-chat-hf \
+meta-llama/Llama-2-7b-hf \
+mistralai/Mistral-7B-Instruct-v0.2 \
+mistralai/Mixtral-8x7B-Instruct-v0.1 \
+do
+
+# Run the model with 4 bit quantization using data parallel and 4 GPUs (One copy of the model per GPU)
+accelerate launch --multi_gpu --num_processes 4 run.py \
+ --config configs/zero-shot/base_fewshot.yaml --model_name_or_path "$model_name" --output_dir results/fewshot/"$model_name"
+
+# Run the model in bfloat16 with deepspeed zero stage 3 using 4 GPUs (Split the model across 4 GPUs)
+accelerate launch --use_deepspeed --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py \
+ --config configs/zero-shot/base_fewshot_deepspeed.yaml --model_name_or_path "$model_name" --output_dir results/fewshot/"$model_name"
+```
 
 
 ## Training a LLM
-You can train a LLMs in our dataset. First, you need to create a configuration file. See [configs/train](configs/train) for an example. Here is an example config to finetune LLama2-7b Chat:
+You can train a LLMs in our dataset. First, you need to create a configuration file. See [configs/train](configs/train) for examples. Here is an example config to finetune LLama2-7b Chat:
 
 ```yaml
 #Model args

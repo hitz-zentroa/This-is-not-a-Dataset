@@ -137,7 +137,7 @@ def get_device_map(
         if word_size > 1:
             logging.warning(
                 "Found DDP environment and force_auto_device_map is set to False, we will load a copy of the model "
-                "on each GPU."
+                "on each GPU. If you have passed a deepspeed configuration file, the model will be split across GPUs."
             )
             device_map = None  # {"": int(os.environ.get("LOCAL_RANK", 0))}
 
@@ -289,8 +289,8 @@ def load_model(
 
     if isinstance(quantization, str):
         quantization = int(quantization)
-    assert (
-        (quantization is None) or (quantization in [4, 8])
+    assert (quantization is None) or (
+        quantization in [4, 8]
     ), f"Quantization must be 4 or 8, or None for FP32/FP16 training. You passed: {quantization}"
 
     if not inference and quantization is not None and not use_lora:

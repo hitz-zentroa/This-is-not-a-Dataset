@@ -4,7 +4,7 @@
 # If you don't have multiple GPUs, see the base.yaml config for an example of using 4 bit quantization
 # to fit the model on a single GPU.
 # Usage example:
-# accelerate launch --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py --config configs/zero-shot/base.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/zero-shot/zephyr-7b-beta
+# accelerate launch --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py --config configs/zero-shot/base_deepspeed.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/zero-shot/zephyr-7b-beta
 
 model_name_or_path: ./ # Default value, will be overriden by --model_name_or_path
 output_dir: ./ # Default value, will be overriden by --output_dir
