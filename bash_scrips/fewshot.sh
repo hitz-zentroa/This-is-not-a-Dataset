@@ -60,8 +60,11 @@ HiTZ/latxa-70b-v1.1
 do
 
 
+# Run the model with 4 bit quantization using data parallel and 4 GPUs (One copy of the model per GPU)
+#accelerate launch --multi_gpu --num_processes 4 --main_process_port 29507 run.py \
+# --config configs/zero-shot/base_fewshot.yaml --model_name_or_path "$model_name" --output_dir results/fewshot//"${model_name//\//_}"
 
-accelerate launch --multi_gpu --num_processes 4 --main_process_port 29507 run.py \
- --config configs/zero-shot/base_fewshot.yaml --model_name_or_path "$model_name" --output_dir results/fewshot//"${model_name//\//_}"
-
+# Run the model in bfloat16 with deepspeed zero stage 3 using 4 GPUs (Split the model across 4 GPUs)
+accelerate launch --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json --main_process_port 29507 run.py \
+ --config configs/zero-shot/base_fewshot_deepspeed.yaml --model_name_or_path "$model_name" --output_dir results/fewshot//"${model_name//\//_}"
 done

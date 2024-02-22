@@ -1,4 +1,5 @@
 # Sample config to run any model in zero-shot mode
+# This example uses 4 bit quantization to fit the model on a single GPU.
 # Usage example:
 # 1 GPU: accelerate launch run.py --config configs/zero-shot/base.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/zero-shot/zephyr-7b-beta
 # Multi-GPU: accelerate launch --multi_gpu --num_processes 2 --main_process_port 29503 run.py --config configs/zero-shot/base.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/zero-shot/zephyr-7b-beta
@@ -7,6 +8,7 @@ model_name_or_path: ./ # Default value, will be overriden by --model_name_or_pat
 output_dir: ./ # Default value, will be overriden by --output_dir
 torch_dtype: "bfloat16"
 quantization: 4
+use_flash_attention: true
 force_auto_device_map: false
 predict_with_generate: false
 per_device_eval_batch_size: 8

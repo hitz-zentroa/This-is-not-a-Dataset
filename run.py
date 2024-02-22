@@ -559,12 +559,13 @@ def main(
     clean_cache()
 
     if training_args.do_predict:
-        if not training_args.do_train:
+        if not training_args.do_train and not training_args.overwrite_output_dir:
             if os.path.exists(
                 os.path.join(training_args.output_dir, "test_results.json")
             ):
                 print(
-                    f"Test results already exist in {training_args.output_dir}. We will skip inference."
+                    f"Test results already exist in {training_args.output_dir}. We will skip inference. "
+                    f"Set overwrite_output_dir=True if you want to run inference again."
                 )
                 return
 
@@ -606,15 +607,7 @@ def main(
             starting_batch_size=training_args.per_device_eval_batch_size
         )
         def inference(batch_size):
-            nonlocal \
-                model, \
-                tokenizer, \
-                data_args, \
-                model_args, \
-                training_args, \
-                first, \
-                true_tokens_ids, \
-                false_tokens_ids
+            nonlocal model, tokenizer, data_args, model_args, training_args, first, true_tokens_ids, false_tokens_ids
 
             print(f"Inference with batch size {batch_size}")
             test_dataloader = get_dataloader(

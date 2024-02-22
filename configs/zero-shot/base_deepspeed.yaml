@@ -1,0 +1,25 @@
+# Sample config to run any model in zero-shot mode
+# This example loads the model in bfloat16, most model won't fit in a single GPU with this configuration.
+# Therefore this config is meant to be used with deepspeed zero3 to split the model across multiple GPUs.
+# If you don't have multiple GPUs, see the base.yaml config for an example of using 4 bit quantization
+# to fit the model on a single GPU.
+# Usage example:
+# accelerate launch --deepspeed_config_file configs/deepspeed_configs/deepspeed_zero3.json run.py --config configs/zero-shot/base.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/zero-shot/zephyr-7b-beta
+
+model_name_or_path: ./ # Default value, will be overriden by --model_name_or_path
+output_dir: ./ # Default value, will be overriden by --output_dir
+torch_dtype: "bfloat16"
+quantization: null # Deepspeed zero3 doesn't support quantization
+use_flash_attention: true
+force_auto_device_map: false
+predict_with_generate: false
+per_device_eval_batch_size: 8
+fewshot: false
+
+# dataset arguments
+do_train: false
+do_eval: false
+do_predict: true
+do_predict_full_dataset: false
+max_seq_length: null # Use the default value for the model
+
