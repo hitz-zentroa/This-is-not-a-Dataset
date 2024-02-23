@@ -53,6 +53,7 @@ google/gemma-2b-it \
 google/gemma-7b \
 google/gemma-7b-it \
 CohereForAI/aya-101 \
+google/flan-t5-xxl \
 allenai/OLMo-7B \
 microsoft/phi-2 \
 openchat/openchat-3.5-0106 \

@@ -143,7 +143,8 @@ def gen_predictions(
                         model = model.module  # Unwrap model if it is a DataParallel
 
                     with torch.autocast(
-                        "cuda" if torch.cuda.is_available() else "cpu"
+                        "cuda" if torch.cuda.is_available() else "cpu",
+                        dtype=model.dtype,
                     ):  # Fix fused_layer_norm_cuda RuntimeError: expected scalar type Float but found Half
                         encoder_output = model.get_encoder()(
                             input_ids=batch["input_ids"],
