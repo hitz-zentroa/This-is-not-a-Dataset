@@ -30,6 +30,10 @@ We introduce a large semi-automatically generated dataset of ~400,000 descriptiv
 We also provide the code to <b>train</b> and <b>evaluate</b> any LLM in the dataset, as well as the <b>scorer</b> to reproduce the results of the paper.
 </p>
 
+<p align="center">
+<img src="https://github.com/hitz-zentroa/This-is-not-a-Dataset/blob/main/assets/example.png?raw=true" style="height: 450px;">
+</p>
+
 ## Dataset
 
 The easiest and recommended way to download the dataset is using the 🤗HuggingFace Hub. See the [Dataset Card](https://huggingface.co/datasets/HiTZ/This-is-not-a-dataset) for more information about the dataset.
