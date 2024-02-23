@@ -79,16 +79,6 @@ class ModelArguments:
         },
     )
 
-    conversation_template: str = field(
-        default=None,
-        metadata={
-            "help": (
-                "The config template to use to generate conversations. See "
-                "https://github.com/lm-sys/FastChat/blob/main/fastchat/conversation.py for more details"
-            )
-        },
-    )
-
     add_bos_token: bool = field(
         default=False,
         metadata={
@@ -99,12 +89,12 @@ class ModelArguments:
     )
 
     use_flash_attention: bool = field(
-        default=False,
+        default=True,
         metadata={
             "help": (
                 "Whether to use the FlashAttention. If True, we will use FlashAttention. Be careful, not all models "
                 "support FlashAttention. See https://github.com/huggingface/transformers/issues/26350. "
-                "Defaults to False."
+                "Defaults to True."
             )
         },
     )
@@ -211,4 +201,9 @@ class DataTrainingArguments:
                 "Whether to only load distractor examples for training. Defaults to `False`."
             )
         },
+    )
+
+    fewshot: bool = field(
+        default=False,
+        metadata={"help": ("Whether to add few-shot examples to the input.")},
     )

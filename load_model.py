@@ -4,7 +4,6 @@ import os
 from typing import List, Optional, Tuple, Union
 
 import torch
-
 from transformers import (
     AutoConfig,
     AutoModelForCausalLM,
@@ -138,7 +137,7 @@ def get_device_map(
         if word_size > 1:
             logging.warning(
                 "Found DDP environment and force_auto_device_map is set to False, we will load a copy of the model "
-                "on each GPU."
+                "on each GPU. If you have passed a deepspeed configuration file, the model will be split across GPUs."
             )
             device_map = None  # {"": int(os.environ.get("LOCAL_RANK", 0))}
 
@@ -197,6 +196,57 @@ def merge_lora_model(
     logging.info(f"Model merged and saved in {output_path}")
 
 
+def deepspeed_moe(model):
+    """
+    If the model is a MoE model, we use the deepspeed set_z3_leaf_modules function to ensure that the model works
+    correctly.
+
+    Args:
+        model (`PreTrainedModel`):
+            The model to check for MoE layers.
+
+    Returns:
+        `PreTrainedModel`:
+            The model with the deepspeed set_z3_leaf_modules function applied if the model is a MoE model.
+    """
+    try:
+        leaf_module = model.model.layers[0].block_sparse_moe.__class__
+    except AttributeError:
+        leaf_module = None
+        logging.warning("Deepspeed enabled. The current model is not a MoE model.")
+
+    if leaf_module is not None:
+        try:
+            from deepspeed.utils import set_z3_leaf_modules
+
+            set_z3_leaf_modules(model, [leaf_module])
+            logging.warning(
+                f"MoE model detected. We have used the deepspeed set_z3_leaf_modules function to ensure"
+                f" that the model works correctly. The leaf module used is {leaf_module}. "
+                f"See https://github.com/microsoft/DeepSpeed/pull/5008 for more details."
+            )
+        except ImportError:
+            logging.warning(
+                "set_z3_leaf_modules function not found. You are not running the latest version of DeepSpeed. "
+                "You can safely ignore this warning if you are not using MoE models. If you are, "
+                "the training/inference will fail. Please update to the latest version of DeepSpeed "
+                "to fix this issue. More details at https://github.com/microsoft/DeepSpeed/pull/5008. "
+                "We will attempt to continue the training/inference."
+            )
+
+        except Exception as e:
+            logging.warning(
+                f"MoE model detected. "
+                f"Something went wrong when trying to use the deepspeed set_z3_leaf_modules function. "
+                f"Please see https://github.com/microsoft/DeepSpeed/pull/5008 for more details.\n"
+                f"The leaf module used is {leaf_module}.\n"
+                f"Error message: {e}\n"
+                f"We will attempt to continue the training/inference, although it will probably freeze/crash."
+            )
+
+    return model
+
+
 def load_model(
     inference: bool,
     model_weights_name_or_path: str,
@@ -210,7 +260,7 @@ def load_model(
     torch_dtype: Optional[str] = None,
     force_auto_device_map: bool = False,
     use_gradient_checkpointing: bool = False,
-    trust_remote_code: bool = False,
+    trust_remote_code: bool = True,
     use_flash_attention: bool = False,
     use_better_transformer: bool = False,
     fsdp_training: bool = False,
@@ -262,7 +312,7 @@ def load_model(
         use_gradient_checkpointing (`bool`, optiona):
             Whether to use gradient checkpointing for training
         trust_remote_code (`bool`, optional):
-            Trust the remote code from HuggingFace model hub. Defaults to False.
+            Trust the remote code from HuggingFace model hub. Defaults to True.
         use_flash_attention (`bool`, optional):
             Whether to use Flash Attention. Defaults to True. Flash attention must be installed, see:
             'https://github.com/Dao-AILab/flash-attention' for more details.
@@ -388,15 +438,11 @@ def load_model(
     # Load the model weights
 
     #  Get the quantization config
-    quant_args = {}
     torch_dtype = (
         torch_dtype if torch_dtype in ["auto", None] else getattr(torch, torch_dtype)
     )
 
     if quantization is not None:
-        quant_args = (
-            {"load_in_4bit": True} if quantization == 4 else {"load_in_8bit": True}
-        )
         if quantization == 4:
             bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
@@ -437,18 +483,24 @@ def load_model(
         model_type = "causal"
 
     else:
-        raise ValueError(
-            f"Model {model_weights_name_or_path} of type {config.model_type} is not supported by CoLLIE."
-            "Supported models are:\n"
-            f"Seq2SeqLM: {MODEL_FOR_SEQ_TO_SEQ_CAUSAL_LM_MAPPING_NAMES}\n"
-            f"CausalLM: {MODEL_FOR_CAUSAL_LM_MAPPING_NAMES}\n"
+        logging.warning(
+            f"Model {model_weights_name_or_path} is not in the "
+            f"MODEL_FOR_SEQ_TO_SEQ_CAUSAL_LM_MAPPING_NAMES or MODEL_FOR_CAUSAL_LM_MAPPING_NAMES. "
+            f"We will attempt load it as a CausalLM model."
         )
+        load_fn = AutoModelForCausalLM
+        tokenizer.padding_side = "left"
+        model_type = "causal"
 
-    #  Load the model weights
-    # Flash attention 2 was added to HuggingFace transformers very recently. Let's add it as kwargs to the load function
-    # so if it is set to False, we can load the model in older versions of transformers.
-    if use_flash_attention:
-        kwargs = {"use_flash_attention_2": True}
+    # Load the model weights
+    # Disable for T5/FLanT5 models
+    # Disable for Olmo
+    if (
+        use_flash_attention
+        and not model_type == "seq2seq"
+        and "olmo" not in model_weights_name_or_path.lower()
+    ):
+        kwargs = {"attn_implementation": "flash_attention_2"}
     else:
         kwargs = {}
 
@@ -460,7 +512,6 @@ def load_model(
         torch_dtype=torch_dtype,
         config=config,
         trust_remote_code=trust_remote_code,
-        **quant_args,
         **kwargs,
     )
 

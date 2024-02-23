@@ -11,7 +11,7 @@ def convert_to_bool(value):
     elif isinstance(value, int) and value in [0, 1]:
         value = value == 1
     elif isinstance(value, float) and int(value) in [
-        0,
+        0,1
     ]:
         value = int(value) == 1
     else:

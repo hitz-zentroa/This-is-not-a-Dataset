@@ -1,28 +1,30 @@
-from load_model import load_model
-from dataset import get_dataloader
-from evaluate import evaluate
-import torch
+import argparse
+import gc
+import json
+import logging
+import math
 import os
-from config import DataTrainingArguments, ModelArguments
+from typing import List
+
+import torch
+import wandb
+from accelerate import Accelerator, find_executable_batch_size
+from tqdm import tqdm
 from transformers import (
     HfArgumentParser,
     Seq2SeqTrainingArguments,
-    set_seed,
+    TrainingArguments,
     get_scheduler,
+    set_seed,
 )
-
-from tqdm import tqdm
-from accelerate import Accelerator, find_executable_batch_size
-import wandb
-from typing import List
-import gc
-import json
-import math
-import sys
-from optimizer import get_optimizer
-from transformers.models.auto.modeling_auto import MODEL_FOR_CAUSAL_LM_MAPPING_NAMES
 from transformers.modeling_utils import unwrap_model
-import logging
+from transformers.models.auto.modeling_auto import MODEL_FOR_CAUSAL_LM_MAPPING_NAMES
+
+from config import DataTrainingArguments, ModelArguments
+from dataset import get_dataloader
+from evaluate import evaluate
+from load_model import load_model, deepspeed_moe
+from optimizer import get_optimizer
 
 
 def clean_cache():
@@ -123,39 +125,48 @@ def gen_predictions(
                         )
                     )
 
-                    print(f"*** Sample of batch 0 ***")
+                    print("*** Sample of batch 0 ***")
                     print(f"-- Model inputs --\n{model_inputs}")
-                    print(f"*** End of sample ***\n")
+                    print("*** End of sample ***\n")
                     first = False
 
             if not predict_with_generate:
-                if not model.config.is_encoder_decoder:
+                if not accelerator.unwrap_model(model).config.is_encoder_decoder:
                     logits = model(
                         input_ids=batch["input_ids"],
                         attention_mask=batch["attention_mask"],
                     ).logits
                 else:
-                    encoder_output = model.get_encoder()(
-                        input_ids=batch["input_ids"],
-                        attention_mask=batch["attention_mask"],
-                    )
+                    try:
+                        _ = model.get_encoder()
+                    except AttributeError:
+                        model = model.module  # Unwrap model if it is a DataParallel
 
-                    decoder_args = {
-                        "attention_mask": batch["attention_mask"],
-                        "use_cache": False,
-                        "encoder_outputs": encoder_output,
-                    }
+                    with torch.autocast(
+                        "cuda" if torch.cuda.is_available() else "cpu",
+                        dtype=model.dtype,
+                    ):  # Fix fused_layer_norm_cuda RuntimeError: expected scalar type Float but found Half
+                        encoder_output = model.get_encoder()(
+                            input_ids=batch["input_ids"],
+                            attention_mask=batch["attention_mask"],
+                        )
 
-                    gen_inputs = model.prepare_inputs_for_generation(
-                        input_ids=torch.tensor(
-                            [[tokenizer.pad_token_id]] * len(batch["input_ids"])
-                        ).to(batch["input_ids"].device),
-                        **decoder_args,
-                    )
+                        decoder_args = {
+                            "attention_mask": batch["attention_mask"],
+                            "use_cache": False,
+                            "encoder_outputs": encoder_output,
+                        }
 
-                    logits = model(
-                        **gen_inputs,
-                    ).logits
+                        gen_inputs = model.prepare_inputs_for_generation(
+                            input_ids=torch.tensor(
+                                [[tokenizer.pad_token_id]] * len(batch["input_ids"])
+                            ).to(batch["input_ids"].device),
+                            **decoder_args,
+                        )
+
+                        logits = model(
+                            **gen_inputs,
+                        ).logits
 
                 logits = logits[:, -1, :]
                 logits = torch.nn.functional.softmax(logits, dim=-1)
@@ -172,7 +183,7 @@ def gen_predictions(
                             preds = preds[: (len(dataloader.dataset) - samples_seen)]
                             logits = logits[: (len(dataloader.dataset) - samples_seen)]
                         else:
-                            samples_seen += len(batch)
+                            samples_seen += len(preds)
 
                     all_preds.extend(preds)
                     all_scores.extend(logits)
@@ -225,7 +236,9 @@ def gen_predictions(
 
             if not return_scores:
                 json_dataset = dataloader.dataset.get_jsonl()
-                assert len(json_dataset) == len(all_preds)
+                assert len(json_dataset) == len(
+                    all_preds
+                ), f"{len(json_dataset)} != {len(all_preds)}"
                 with open(
                     os.path.splitext(output_path)[0] + ".jsonl", "w", encoding="utf8"
                 ) as f:
@@ -271,6 +284,9 @@ def main(
             use_gradient_checkpointing=model_args.use_lora,
         )
 
+        if accelerator.state.deepspeed_plugin is not None:
+            model = deepspeed_moe(model)
+
         true_tokens_ids = tokenizer.encode("True", add_special_tokens=False)
         false_tokens_ids = tokenizer.encode("False", add_special_tokens=False)
 
@@ -279,10 +295,9 @@ def main(
             split="train",
             is_encoder_decoder=model.config.is_encoder_decoder,
             max_length=data_args.max_seq_length,
-            conv_template=model_args.conversation_template,
+            fewshot=data_args.fewshot,
             batch_size=training_args.per_device_train_batch_size,
             prompt_loss_weight=data_args.prompt_loss_weight,
-            add_bos_token=model_args.add_bos_token,
             pattern=data_args.pattern,
             only_negative=data_args.only_negative,
             only_affirmative=data_args.only_affirmative,
@@ -297,10 +312,9 @@ def main(
                 split="validation",
                 is_encoder_decoder=model.config.is_encoder_decoder,
                 max_length=data_args.max_seq_length,
-                conv_template=model_args.conversation_template,
+                fewshot=data_args.fewshot,
                 batch_size=training_args.per_device_train_batch_size,
                 prompt_loss_weight=data_args.prompt_loss_weight,
-                add_bos_token=model_args.add_bos_token,
                 pattern=data_args.pattern,
                 only_negative=data_args.only_negative,
                 only_affirmative=data_args.only_affirmative,
@@ -384,10 +398,10 @@ def main(
                         )
                     )
 
-                    print(f"*** Sample of batch 0 ***")
+                    print("*** Sample of batch 0 ***")
                     print(f"-- Model inputs --\n{model_inputs}")
                     print(f"-- Labels --\n{labels}")
-                    print(f"*** End of sample ***\n")
+                    print("*** End of sample ***\n")
                     first = False
 
                 loss = compute_loss(model=model, inputs=batch, return_outputs=False)
@@ -549,6 +563,16 @@ def main(
     clean_cache()
 
     if training_args.do_predict:
+        if not training_args.do_train and not training_args.overwrite_output_dir:
+            if os.path.exists(
+                os.path.join(training_args.output_dir, "test_results.json")
+            ):
+                print(
+                    f"Test results already exist in {training_args.output_dir}. We will skip inference. "
+                    f"Set overwrite_output_dir=True if you want to run inference again."
+                )
+                return
+
         if training_args.do_train:
             print(
                 "You are doing inference after training a model! We will load the "
@@ -576,6 +600,9 @@ def main(
             use_flash_attention=model_args.use_flash_attention,
         )
 
+        if accelerator.state.deepspeed_plugin is not None:
+            model = deepspeed_moe(model)
+
         true_tokens_ids = tokenizer.encode("True", add_special_tokens=False)
         false_tokens_ids = tokenizer.encode("False", add_special_tokens=False)
 
@@ -592,12 +619,11 @@ def main(
             print(f"Inference with batch size {batch_size}")
             test_dataloader = get_dataloader(
                 tokenizer=tokenizer,
+                fewshot=data_args.fewshot,
                 split="test" if not data_args.do_predict_full_dataset else "all",
                 is_encoder_decoder=model.config.is_encoder_decoder,
                 max_length=data_args.max_seq_length,
-                conv_template=model_args.conversation_template,
                 batch_size=batch_size,
-                add_bos_token=model_args.add_bos_token,
             )
 
             model, test_dataloader = accelerator.prepare(model, test_dataloader)
@@ -608,7 +634,7 @@ def main(
                 true_tokens_ids=true_tokens_ids,
                 false_tokens_ids=false_tokens_ids,
                 dataloader=test_dataloader,
-                output_path=os.path.join(training_args.output_dir, f"test.preds"),
+                output_path=os.path.join(training_args.output_dir, "test.preds"),
                 accelerator=accelerator,
                 print_first=first,
                 predict_with_generate=training_args.predict_with_generate,
@@ -619,39 +645,51 @@ def main(
 
         if accelerator.is_main_process:
             evaluate(
-                predictions_path=os.path.join(training_args.output_dir, f"test.jsonl"),
-                output_path=os.path.join(
-                    training_args.output_dir, f"test_results.json"
-                ),
+                predictions_path=os.path.join(training_args.output_dir, "test.jsonl"),
+                output_path=os.path.join(training_args.output_dir, "test_results.json"),
             )
 
     clean_cache()
 
 
 if __name__ == "__main__":
-    parser = HfArgumentParser(
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--config",
+        type=str,
+        required=True,
+        help="Path to the config file in yaml format",
+    )
+    parser.add_argument(
+        "--model_name_or_path", type=str, required=False, help="Override model path"
+    )
+    parser.add_argument(
+        "--output_dir", type=str, required=False, help="Override output dir"
+    )
+
+    args = parser.parse_args()
+
+    hf_parser = HfArgumentParser(
         (ModelArguments, DataTrainingArguments, Seq2SeqTrainingArguments)
     )
-    print(f"Sys args {sys.argv}")
 
-    if len(sys.argv) > 0 and sys.argv[-1].endswith(".json"):
-        # If we pass only one argument to the script, and it's the path to a json file,
-        # let's parse it to get our arguments.
-        print(f"Loading json config {sys.argv[-1]}")
-        model_args, data_args, training_args = parser.parse_json_file(
-            json_file=os.path.abspath(sys.argv[-1])
-        )
+    model_args, data_args, training_args = hf_parser.parse_yaml_file(
+        yaml_file=args.config
+    )
 
-    elif len(sys.argv) > 0 and sys.argv[-1].endswith(".yaml"):
-        # If we pass only one argument to the script, and it's the path to a yaml file,
-        # let's parse it to get our arguments.
-        print(f"Loading yaml config {sys.argv[-1]}")
-        model_args, data_args, training_args = parser.parse_yaml_file(
-            yaml_file=os.path.abspath(sys.argv[-1])
-        )
-    else:
-        print("No config file passed, using command line arguments.")
-        model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+    # Make the arguments mutable so we can override them
+    ModelArguments.__setattr__ = object.__setattr__
+    Seq2SeqTrainingArguments.__setattr__ = object.__setattr__
+    TrainingArguments.__setattr__ = object.__setattr__
+
+    model_args.model_name_or_path = (
+        args.model_name_or_path
+        if args.model_name_or_path
+        else model_args.model_name_or_path
+    )
+    training_args.output_dir = (
+        args.output_dir if args.output_dir else training_args.output_dir
+    )
 
     os.makedirs(training_args.output_dir, exist_ok=True)
     main(model_args, data_args, training_args)

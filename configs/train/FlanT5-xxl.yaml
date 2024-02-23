@@ -5,7 +5,6 @@ use_lora: true
 quantization: 4
 force_auto_device_map: false
 predict_with_generate: false
-conversation_template: null
 
 # Dataset arguments
 do_train: true

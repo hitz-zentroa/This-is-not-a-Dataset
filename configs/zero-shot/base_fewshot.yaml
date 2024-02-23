@@ -1,0 +1,24 @@
+# Sample config to run any model in few-shot mode
+# This example uses 4 bit quantization to fit the model on a single GPU.
+# Usage example:
+# 1 GPU: accelerate launch run.py --config configs/zero-shot/base_fewshot.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/fewshot/zephyr-7b-beta
+# Multi-GPU: accelerate launch --multi_gpu --num_processes 2 --main_process_port 29503 run.py --config configs/zero-shot/base_fewshot.yaml --model_name_or_path HuggingFaceH4/zephyr-7b-beta --output_dir results/fewshot/zephyr-7b-beta
+
+model_name_or_path: ./ # Default value, will be overriden by --model_name_or_path
+output_dir: ./ # Default value, will be overriden by --output_dir
+torch_dtype: "bfloat16"
+quantization: 4
+use_flash_attention: true
+force_auto_device_map: false
+predict_with_generate: false
+per_device_eval_batch_size: 8
+fewshot: true
+
+# dataset arguments
+do_train: false
+do_eval: false
+do_predict: true
+do_predict_full_dataset: false
+max_seq_length: null # Use the default value for the model
+
+overwrite_output_dir: false # If true we will tun the inference again if the results already exist. If false we will skip the inference.
