@@ -18,7 +18,7 @@ def get_result_table(result_dir):
             values = json.load(f)
         accuracy = float(values["all"]["accuracy"])
         results.append(accuracy)
-        result_names.append(result_file.parent.name)
+        result_names.append(result_file.parent.name.replace("_", "/"))
 
     # Prepare data for plotting
     data = sorted(zip(result_names, results), key=lambda x: x[1])
