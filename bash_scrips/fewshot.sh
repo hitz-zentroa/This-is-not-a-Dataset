@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:2
-#SBATCH --mem=100G
+#SBATCH --mem=200G
 #SBATCH --output=TINAD_fewshot.out.txt
 #SBATCH --error=TINAD_fewshot.err.txt
 
