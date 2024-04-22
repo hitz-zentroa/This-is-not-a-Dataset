@@ -33,7 +33,7 @@ lucyknada/microsoft_WizardLM-2-7B
 do
 
 # Run the model with 4 bit quantization using data parallel and 4 GPUs (One copy of the model per GPU)
-accelerate launch --multi_gpu --num_processes 4 --main_process_port 29503 run.py \
+python3 run.py \
   --config configs/zero-shot/base.yaml --model_name_or_path "$model_name" --output_dir results/zero-shot/"${model_name//\//_}"
 
 # Run the model in bfloat16 with deepspeed zero stage 3 using 4 GPUs (Split the model across 4 GPUs)
