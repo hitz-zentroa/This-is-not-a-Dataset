@@ -2,7 +2,7 @@
 #SBATCH --job-name=TINAD_zero
 #SBATCH --cpus-per-task=16
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:1
 #SBATCH --mem=200G
 #SBATCH --output=TINAD_zero.out.txt
 #SBATCH --error=TINAD_zero.err.txt
@@ -23,13 +23,8 @@ echo CUDA_VISIBLE_DEVICES "${CUDA_VISIBLE_DEVICES}"
 export PYTHONPATH="$PYTHONPATH:$PWD"
 
 for model_name in \
-meta-llama/Meta-Llama-3-70B-Instruct \
-CohereForAI/c4ai-command-r-v01 \
-CohereForAI/c4ai-command-r-plus \
-mistralai/Mixtral-8x22B-Instruct-v0.1 \
-mistralai/Mixtral-8x22B-v0.1  \
-alpindale/WizardLM-2-8x22B  \
-lucyknada/microsoft_WizardLM-2-7B
+/ikerlariak/Mortadelo-Filemon/gemma-2b-spanish-FAIL \
+/ikerlariak/Mortadelo-Filemon/gemma-2b-spanish 
 do
 
 # Run the model with 4 bit quantization using data parallel and 4 GPUs (One copy of the model per GPU)
