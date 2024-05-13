@@ -24,7 +24,8 @@ export PYTHONPATH="$PYTHONPATH:$PWD"
 
 for model_name in \
 /ikerlariak/Mortadelo-Filemon/gemma-2b-spanish-FAIL \
-/ikerlariak/Mortadelo-Filemon/gemma-2b-spanish 
+/ikerlariak/Mortadelo-Filemon/gemma-2b-spanish \
+google/gemma-1.1-2b-it
 do
 
 # Run the model with 4 bit quantization using data parallel and 4 GPUs (One copy of the model per GPU)
